@@ -2,6 +2,7 @@ import React from "react";
 import NoteType from "../app/types/Note";
 import Note from "./Note";
 import AddButton from "./AddButton";
+import Profile from "./Profile";
 
 const notes: NoteType[] = [
   {
@@ -51,15 +52,15 @@ const notes: NoteType[] = [
 
 const NoteList: React.FC = () => {
   return (
-    <div className="w-64 top-0 h-screen p-2 bg-slate-200 overflow-y-auto">
-      <div className="w-full flex flex-col items-center">
-        <p className="text-2xl">Personal Notes</p>
-        <AddButton />
-        <div className="">
-          {notes.map((note) => (
-            <Note key={note._id} note={note} />
-          ))}
-        </div>
+    <div className="w-[20vw] h-screen bg-slate-200">
+      <div className="w-full h-[92vh] flex flex-col items-center flex-grow p-2 overflow-y-scroll scrollbar-hidden">
+        {notes.map((note) => (
+          <Note key={note._id} note={note} />
+        ))}
+      </div>
+      <div className="w-full h-[8vh] flex justify-around items-center bg-slate-300 flex-shrink ">
+        <Profile />
+        <AddButton className="rounded-xl h-[4vh]" />
       </div>
     </div>
   );

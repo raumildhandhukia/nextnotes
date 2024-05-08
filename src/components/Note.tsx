@@ -16,7 +16,7 @@ interface Props {
 
 const Note: React.FC<Props> = ({ note }) => {
   return (
-    <Card className="w-full">
+    <Card className="w-full my-1 scale-95 opacity-75 transition-all duration-300 hover:scale-100 hover:opacity-100">
       <CardHeader>
         <CardTitle>{note.title}</CardTitle>
         <CardDescription className="line-clamp-3">

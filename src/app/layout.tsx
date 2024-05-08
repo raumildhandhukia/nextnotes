@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="w-screen">
-        <div className="flex gap-2">
+        <div className="flex">
           <aside className="sticky">
             <NoteList />
           </aside>
