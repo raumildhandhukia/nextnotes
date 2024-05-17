@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import NoteList from "../components/NoteList";
+import Provider from "@/context/Provider";
 import "./globals.css";
+import SideBar from "@/components/SideBar/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,12 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="w-screen">
-        <div className="flex">
-          <aside className="sticky">
-            <NoteList />
+        <Provider>
+          <aside className="fixed">
+            <SideBar />
           </aside>
-          <div className="flex-1">{children}</div>
-        </div>
+          <div className="mx-[20vw]">{children}</div>
+        </Provider>
+        {/* <Provider>{children}</Provider> */}
       </body>
     </html>
   );

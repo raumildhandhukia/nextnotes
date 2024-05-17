@@ -1,0 +1,22 @@
+.note-base {
+  width: 100%;
+  margin-top: 16px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.note {
+  scale: 0.95;
+  opacity: 0.75;
+}
+
+.note:hover,
+selected-note {
+  scale: 1;
+  opacity: 1;
+}
+
+.box-shadow {
+  /* horizontal offset | vertical offset | blur radius | spread radius | color */
+  box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.2);
+}
