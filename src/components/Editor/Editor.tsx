@@ -14,7 +14,7 @@ import { Notes_Context } from "@/context/Context";
 import MenuBar from "./MenuBar";
 
 interface EditorProps {
-  throttledUpdate: (c: string, _id: string) => Promise<Note | undefined>;
+  throttledUpdate: Function;
 }
 const CustomDocument = Document.extend({
   content: "heading block*",

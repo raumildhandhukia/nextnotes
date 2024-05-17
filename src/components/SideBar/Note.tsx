@@ -47,7 +47,7 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
       }}
     >
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="line-clamp-1">
           {convertHTMLtoTextWithLineBreaks(note.title, "Enter Title")}
         </CardTitle>
         <CardDescription className="line-clamp-3">

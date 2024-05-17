@@ -37,37 +37,46 @@ const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
 
   let shouldWait = false;
   let waitingArgs: any[] | null = null;
+  let resolveWaitingPromise: ((value: any) => void) | null = null;
 
-  function throttle(callback: Function, delay: number) {
-    const timeoutFuction = () => {
+  function throttle(callback: (...args: any[]) => Promise<any>, delay: number) {
+    const timeoutFunction = () => {
       if (waitingArgs === null) {
         shouldWait = false;
       } else {
-        callback(...waitingArgs);
-        waitingArgs = null;
-        setTimeout(timeoutFuction, delay);
+        callback(...waitingArgs).then((result) => {
+          if (resolveWaitingPromise) {
+            resolveWaitingPromise(result);
+            resolveWaitingPromise = null;
+          }
+          waitingArgs = null;
+          setTimeout(timeoutFunction, delay);
+        });
       }
     };
-    if (shouldWait) {
-      waitingArgs = callback.arguments;
-      return null;
-    }
 
-    const data = callback();
-    shouldWait = true;
+    return (...args: any[]) => {
+      if (shouldWait) {
+        waitingArgs = args;
+        return new Promise((resolve) => {
+          resolveWaitingPromise = resolve;
+        });
+      }
 
-    setTimeout(timeoutFuction, delay);
+      shouldWait = true;
 
-    return data;
+      return new Promise((resolve) => {
+        callback(...args).then((result) => {
+          resolve(result);
+          setTimeout(timeoutFunction, delay);
+        });
+      });
+    };
   }
 
-  const throttledUpdate = async (c: string, _id: string) => {
-    const updatedNote = await throttle(async () => {
-      return await updateNote(c, _id);
-    }, 3000);
-
-    return updatedNote;
-  };
+  const throttledUpdate = throttle(async (c: string, _id: string) => {
+    return await updateNote(c, _id);
+  }, 1000);
 
   return (
     <>
