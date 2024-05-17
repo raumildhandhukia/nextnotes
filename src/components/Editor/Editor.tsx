@@ -24,7 +24,7 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   const { notes, setNotes, selectedNote } = useContext(Notes_Context);
 
   const getContent = () => {
-    return selectedNote?.title || "" + selectedNote?.content;
+    return "" + selectedNote?.title + selectedNote?.content;
   };
 
   const handleUpdate = async (c: string) => {

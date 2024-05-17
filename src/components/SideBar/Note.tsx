@@ -50,14 +50,19 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
         <CardTitle className="line-clamp-1">
           {convertHTMLtoTextWithLineBreaks(note.title, "Enter Title")}
         </CardTitle>
-        <CardDescription className="line-clamp-3">
-          {convertHTMLtoTextWithLineBreaks(
-            note.content,
-            "Write some content !!!"
-          )}
+        <CardDescription>
+          <p className="line-clamp-2">
+            {convertHTMLtoTextWithLineBreaks(
+              note.content,
+              "Write some content !!!"
+            )}
+          </p>
+          <p className="my-2 font-semibold">
+            {new Date(note.updatedAt).toLocaleString()}
+          </p>
         </CardDescription>
       </CardHeader>
-      <CardFooter className="flex justify-between">
+      <CardFooter className="flex justify-between -my-4">
         <Button variant="outline">Share</Button>
         <DeleteButton _id={note._id} />
       </CardFooter>

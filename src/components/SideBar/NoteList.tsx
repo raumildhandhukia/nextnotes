@@ -4,6 +4,8 @@ import React, { useEffect, useContext } from "react";
 import NoteType from "../../app/types/Note";
 import Note from "./Note";
 import { useRouter } from "next/navigation";
+import { AnimatePresence } from "framer-motion";
+import AnimatedListItem from "./AnimatedListItem";
 
 interface Props {}
 
@@ -45,14 +47,18 @@ const NoteList: React.FC<Props> = () => {
 
   return (
     <div className="w-full h-[92vh] flex flex-col items-center flex-grow p-2 overflow-y-scroll scrollbar-hidden">
-      {notes.map((note) => (
-        <Note
-          key={note._id}
-          note={note}
-          isSelected={selectedNote?._id === note._id}
-          toggleSelectNote={setSelectedNote}
-        />
-      ))}
+      <AnimatePresence initial={false}>
+        {notes.map((note) => (
+          <AnimatedListItem key={note._id}>
+            <Note
+              key={note._id}
+              note={note}
+              isSelected={selectedNote?._id === note._id}
+              toggleSelectNote={setSelectedNote}
+            />
+          </AnimatedListItem>
+        ))}
+      </AnimatePresence>
     </div>
   );
 };
