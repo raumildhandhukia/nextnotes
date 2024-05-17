@@ -14,7 +14,7 @@ import { Notes_Context } from "@/context/Context";
 import MenuBar from "./MenuBar";
 
 interface EditorProps {
-  throttledUpdate: (c: string, _id: string) => Note | null;
+  throttledUpdate: (c: string, _id: string) => Promise<Note | undefined>;
 }
 const CustomDocument = Document.extend({
   content: "heading block*",
@@ -27,8 +27,8 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     return selectedNote?.title || "" + selectedNote?.content;
   };
 
-  const handleUpdate = (c: string) => {
-    const updatedNote = throttledUpdate(c, selectedNote?._id || "");
+  const handleUpdate = async (c: string) => {
+    const updatedNote = await throttledUpdate(c, selectedNote?._id || "");
     if (!updatedNote) {
       return;
     }

@@ -11,6 +11,8 @@ const NoteList: React.FC<Props> = () => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
 
+  console.log(notes);
+
   const router = useRouter();
 
   useEffect(() => {
