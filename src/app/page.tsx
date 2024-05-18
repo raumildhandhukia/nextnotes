@@ -1,11 +1,7 @@
-import Image from "next/image";
+"use client";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
-  return (
-    <main>
-      <div className="flex h-screen w-[80vw] justify-center items-center">
-        <p>Please Select a Note</p>
-      </div>
-    </main>
-  );
+export default function SignInPage() {
+  const router = useRouter();
+  router.push("/login");
 }

@@ -18,7 +18,7 @@ const NoteList: React.FC<Props> = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push(selectedNote ? `/notes/${selectedNote?._id}` : "/");
+    router.push(selectedNote ? `/notes/${selectedNote?._id}` : "/notes");
   }, [router, selectedNote]);
 
   useEffect(() => {

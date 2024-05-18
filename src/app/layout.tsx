@@ -19,13 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="w-screen">
-        <Provider>
-          <aside className="fixed">
-            <SideBar />
-          </aside>
-          <div className="mx-[20vw]">{children}</div>
-        </Provider>
-        {/* <Provider>{children}</Provider> */}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );

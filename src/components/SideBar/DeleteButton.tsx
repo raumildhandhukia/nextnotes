@@ -29,7 +29,7 @@ const DeleteButton: React.FC<Props> = ({ _id }) => {
     });
     setNotes(updatedNotes);
     if (selectedNote?._id === _id) {
-      router.push("/");
+      router.push("/notes");
     }
   };
 
