@@ -1,18 +1,27 @@
-import connect from "@/lib/mongodb";
-import NoteModel from "../../../../models/note";
+import NoteModel from "../../../models/note";
+import { db } from "@/lib/db";
 
 export async function POST() {
   try {
-    await connect();
-    const note = await NoteModel.create({
-      title: "",
-      content: "",
-      createdAt: new Date(),
-      updatedAt: new Date(),
+    const res = await db.note.create({
+      data: {
+        title: "",
+        content: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     });
-    note.save();
+    const returnNote = {
+      ...res,
+      _id: res.id,
+    };
+
     return new Response(
-      JSON.stringify({ message: "Note Created", _id: note._id, newNote: note }),
+      JSON.stringify({
+        message: "Note Created",
+        _id: returnNote.id,
+        newNote: returnNote,
+      }),
       {
         status: 200,
       }
@@ -23,11 +32,18 @@ export async function POST() {
 }
 export async function GET() {
   try {
-    await connect();
-    const notes = await NoteModel.find({});
-    notes.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    let notes = await db.note.findMany({
+      orderBy: {
+        updatedAt: "desc",
+      },
     });
+    notes = notes.map((note) => {
+      return {
+        ...note,
+        _id: note.id,
+      };
+    });
+
     return new Response(JSON.stringify(notes), { status: 200 });
   } catch (e) {
     return new Response("Error Fetching Notes", { status: 500 });

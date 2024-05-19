@@ -1,14 +1,16 @@
-import SideBar from "@/components/SideBar/SideBar";
+import SideBar from "@/app/components/sidebar/SideBar";
+import { auth } from "@/auth";
 
 interface NoteLayoutProps {
   children: React.ReactNode;
 }
 
-const NoteLayout: React.FC<NoteLayoutProps> = ({ children }) => {
+const NoteLayout: React.FC<NoteLayoutProps> = async ({ children }) => {
+  const session = await auth();
   return (
     <main>
       <aside className="fixed">
-        <SideBar />
+        <SideBar userInfo={session?.user} />
       </aside>
       <div className="mx-[20vw]">{children}</div>
     </main>

@@ -1,6 +1,6 @@
 "use client";
 import NoteType from "@/app/types/Note";
-import Editor from "../../../components/Editor/Editor";
+import Editor from "../../components/editor/Editor";
 
 import React from "react";
 import { set } from "lodash";

@@ -1,5 +1,5 @@
-import connect from "@/lib/mongodb";
-import NoteModel from "../../../../../models/note";
+import NoteModel from "../../../../models/note";
+import { db } from "@/lib/db";
 
 export async function DELETE(
   req: Request,
@@ -7,9 +7,13 @@ export async function DELETE(
 ) {
   try {
     const slug = params._id;
-    await connect();
-    const res = await NoteModel.deleteMany({ _id: slug });
-    if (res.deletedCount > 0) {
+    const res = await db.note.delete({
+      where: {
+        id: slug,
+      },
+    });
+
+    if (res) {
       return new Response("Note Deleted", { status: 200 });
     }
     return new Response("Note not Deleted", { status: 501 });
@@ -25,19 +29,24 @@ export async function PATCH(
   try {
     const body = await req.json();
     const slug = params._id;
-    await connect();
-    const note = await NoteModel.findOneAndUpdate(
-      { _id: slug },
-      { ...body, updatedAt: new Date() },
-      {
-        new: true,
-      }
-    );
+    const note = await db.note.update({
+      where: {
+        id: slug,
+      },
+      data: {
+        ...body,
+        updatedAt: new Date(),
+      },
+    });
     if (note) {
+      const newNote = {
+        ...note,
+        _id: note.id,
+      };
       return new Response(
         JSON.stringify({
           message: "Note Updated",
-          updatedNote: note,
+          updatedNote: newNote,
         }),
         { status: 200 }
       );

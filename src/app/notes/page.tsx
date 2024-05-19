@@ -1,4 +1,6 @@
-const NotesLanding = () => {
+import { auth } from "@/auth";
+
+const NotesLanding = async () => {
   return (
     <div className="flex w-[80vw] h-screen justify-center items-center ">
       <p className="text-3xl font-semibold text-zinc-600">
