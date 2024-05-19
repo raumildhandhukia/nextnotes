@@ -12,10 +12,10 @@ interface Props {
 const SideBar: React.FC<Props> = ({ userInfo }) => {
   return (
     <div className="w-[20vw] h-screen bg-slate-200">
-      <NoteList />
+      <NoteList userInfo={userInfo} />
       <div className="w-full h-[8vh] flex justify-between items-center bg-slate-300 px-[2vw]">
         <Profile userInfo={userInfo} />
-        <AddButton className="rounded-xl h-[4vh]" />
+        <AddButton userInfo={userInfo} className="rounded-xl h-[4vh]" />
       </div>
     </div>
   );

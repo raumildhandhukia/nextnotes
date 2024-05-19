@@ -7,6 +7,10 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { generateVerificationToken } from "@/lib/tokens";
+import { getUserByEmail } from "@/data/user";
+import { send } from "process";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   let toRedirect = false;
@@ -16,12 +20,24 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     return { error: "Invalid Fields!" };
   }
   const { email, password } = validatedFields.data;
+  const existingUser = await getUserByEmail(email);
+  if (!existingUser || !existingUser.email || !existingUser.password) {
+    return { error: "Email is not registered." };
+  }
+  if (existingUser && !existingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(email);
+    if (!verificationToken) {
+      return { error: "Failed to generate verification token!" };
+    }
+    await sendVerificationEmail(email, verificationToken.token);
+    return { success: "Email not verified, verification email sent!" };
+  }
   try {
     await signIn("credentials", {
       email,
       password,
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     });
-    return { success: "Login Successful" };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -37,8 +53,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     }
     throw error;
   } finally {
-    if (toRedirect) {
-      redirect(DEFAULT_LOGIN_REDIRECT);
-    }
+    // if (toRedirect) {
+    //   redirect(DEFAULT_LOGIN_REDIRECT);
+    // }
   }
 };

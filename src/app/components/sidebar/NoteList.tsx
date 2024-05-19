@@ -7,13 +7,16 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import AnimatedListItem from "./AnimatedListItem";
 
-interface Props {}
+interface Props {
+  userInfo: any;
+}
 
-const NoteList: React.FC<Props> = () => {
+const NoteList: React.FC<Props> = ({ userInfo }) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
 
   const router = useRouter();
+  const userId = userInfo.id;
 
   useEffect(() => {
     router.push(selectedNote ? `/notes/${selectedNote?._id}` : "/notes");
@@ -21,7 +24,7 @@ const NoteList: React.FC<Props> = () => {
 
   useEffect(() => {
     async function getNotes() {
-      const res = await fetch("http://localhost:3000/api/notes", {
+      const res = await fetch(`http://localhost:3000/api/notes/for/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

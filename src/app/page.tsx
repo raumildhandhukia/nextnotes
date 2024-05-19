@@ -30,7 +30,7 @@ export default function SignInPage() {
             </Button>
           </LoginButton>
           <RegisterButton>
-            <Button variant="default" size="lg">
+            <Button variant="destructive" size="lg">
               Register
             </Button>
           </RegisterButton>

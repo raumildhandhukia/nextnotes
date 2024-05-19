@@ -16,8 +16,10 @@ import {
 } from "@/components/ui/form";
 import { FormError } from "@/app/components/form-error";
 import { FormSuccess } from "@/app/components/form-success";
+import { ForgotPassword } from "@/app/components/auth/forgot-password";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useSearchParams } from "next/navigation";
 
 export const LoginForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -31,17 +33,20 @@ export const LoginForm = () => {
     },
   });
 
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider"
+      : "";
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
     setError("");
     setSuccess("");
     startTransition(() => {
       login(values).then((data) => {
-        if (data) {
-          setError(data.error);
-          setSuccess(data.success);
-        }
+        setError(data?.error);
+        setSuccess(data?.success);
       });
-      // signIn("credentials");
     });
   };
 
@@ -87,12 +92,13 @@ export const LoginForm = () => {
                       type="password"
                     />
                   </FormControl>
+                  <ForgotPassword />
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             Log In

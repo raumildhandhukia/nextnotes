@@ -29,9 +29,7 @@ const Profile: React.FC<ProfileProps> = ({ userInfo }) => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar className="hover:w-9 hover:h-9">
-            <AvatarImage
-              src={userInfo.image || "https://github.com/shadcn.png"}
-            />
+            <AvatarImage src={userInfo.image} />
             <AvatarFallback>{fallBackText}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>

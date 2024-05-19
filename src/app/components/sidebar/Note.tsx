@@ -4,7 +4,14 @@ import NoteType from "../../types/Note";
 import { useRouter } from "next/navigation";
 
 import "./Note.css";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Card,
   CardContent,
@@ -36,6 +43,18 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
     if (!str) return <div className="text-gray-500 italic">{def}</div>;
     return str;
   };
+  const RenderPopup = () => {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button>Share</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Feature Coming Soon</DropdownMenuLabel>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  };
 
   return (
     <Card
@@ -63,7 +82,7 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
         </CardDescription>
       </CardHeader>
       <CardFooter className="flex justify-between -my-4">
-        <Button variant="outline">Share</Button>
+        <RenderPopup />
         <DeleteButton _id={note._id} />
       </CardFooter>
     </Card>
