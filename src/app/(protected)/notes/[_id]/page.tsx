@@ -7,12 +7,7 @@ interface Props {
 }
 
 const Page: React.FC<Props> = async ({ params }) => {
-  return (
-    <>
-      <p className="text-2xl"></p>
-      <ExpandNote />
-    </>
-  );
+  return <ExpandNote />;
 };
 
 export default Page;

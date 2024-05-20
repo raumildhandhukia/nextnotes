@@ -14,6 +14,8 @@ interface ContextType {
     image?: string;
   };
   setUserInfo: React.Dispatch<React.SetStateAction<ContextType["userInfo"]>>;
+  isExpanded: boolean;
+  setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const defaultContext: ContextType = {
   reloadNotes: false,
@@ -24,6 +26,8 @@ const defaultContext: ContextType = {
   setNotes: () => {},
   userInfo: {},
   setUserInfo: () => {},
+  isExpanded: true,
+  setIsExpanded: () => {},
 };
 
 export const Notes_Context = createContext(defaultContext);
@@ -37,6 +41,7 @@ const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [userInfo, setUserInfo] = useState<ContextType["userInfo"]>({});
+  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   return (
     <Notes_Context.Provider
@@ -49,6 +54,8 @@ const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
         setNotes,
         userInfo,
         setUserInfo,
+        setIsExpanded,
+        isExpanded,
       }}
     >
       {children}

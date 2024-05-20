@@ -6,17 +6,17 @@ import Note from "./Note";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import AnimatedListItem from "./AnimatedListItem";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-interface Props {
-  userInfo: any;
-}
+interface Props {}
 
-const NoteList: React.FC<Props> = ({ userInfo }) => {
+const NoteList: React.FC<Props> = ({}) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
+  const user = useCurrentUser();
 
   const router = useRouter();
-  const userId = userInfo.id;
+  const userId = user?.id;
 
   useEffect(() => {
     router.push(selectedNote ? `/notes/${selectedNote?._id}` : "/notes");
@@ -35,27 +35,21 @@ const NoteList: React.FC<Props> = ({ userInfo }) => {
         throw new Error("Failed to fetch data");
       }
       const notes: NoteType[] = await res.json();
-      notes.sort((a, b) => {
-        return (
-          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-        );
-      });
       setNotes(notes);
       setSelectedNote(notes.length > 0 ? notes[0] : null);
     }
     getNotes();
-  }, [setNotes, setSelectedNote]);
+  }, [setNotes, setSelectedNote, userId]);
 
   return (
-    <div className="w-full h-[92vh] flex flex-col items-center flex-grow p-2 overflow-y-scroll scrollbar-hidden">
+    <div className="flex max-h-[70vh] flex-col items-center flex-grow p-2 overflow-y-scroll scrollbar-hidden">
       <AnimatePresence initial={false}>
         {notes.map((note) => (
           <AnimatedListItem key={note._id}>
             <Note
               key={note._id}
+              isSelected={note._id === selectedNote?._id}
               note={note}
-              isSelected={selectedNote?._id === note._id}
-              toggleSelectNote={setSelectedNote}
             />
           </AnimatedListItem>
         ))}

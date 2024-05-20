@@ -13,14 +13,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogoutButton } from "@/app/components/logout";
+import { NightModeSwitch } from "@/app/components/sidebar/night-mode";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-interface ProfileProps {
-  userInfo: any;
-}
+interface ProfileProps {}
 
-const Profile: React.FC<ProfileProps> = ({ userInfo }) => {
+const Profile: React.FC<ProfileProps> = ({}) => {
+  const user = useCurrentUser();
   const fallBackText =
-    userInfo.name
+    user?.name
       ?.split(" ")
       .map((n: string) => n[0])
       .join("") || "NA";
@@ -29,14 +30,16 @@ const Profile: React.FC<ProfileProps> = ({ userInfo }) => {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar className="hover:w-9 hover:h-9">
-            <AvatarImage src={userInfo.image} />
+            <AvatarImage src={user?.image || ""} />
             <AvatarFallback>{fallBackText}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel>{userInfo.name}</DropdownMenuLabel>
+          <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
           <DropdownMenuSeparator />
-
+          <DropdownMenuItem>
+            <NightModeSwitch />
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <LogoutButton />
           </DropdownMenuItem>

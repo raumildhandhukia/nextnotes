@@ -2,18 +2,24 @@
 
 import { Button } from "../../../components/ui/button";
 import { PlusIcon } from "@radix-ui/react-icons";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Notes_Context } from "@/context/Context";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { deleteNote } from "@/actions/notes/delete";
 
 interface Props {
   className?: string;
-  userInfo: any;
 }
 
-const AddButton: React.FC<Props> = ({ className, userInfo }) => {
-  const { notes, setNotes, setSelectedNote } = useContext(Notes_Context);
-  const userId = userInfo.id;
+const AddButton: React.FC<Props> = ({ className }) => {
+  const { notes, setNotes, selectedNote, setSelectedNote } =
+    useContext(Notes_Context);
+  let enableAddNote = true;
+  const user = useCurrentUser();
+  const userId = user?.id;
   const handleAddNote = async () => {
+    if (!enableAddNote) return;
+    enableAddNote = false;
     const res = await fetch("http://localhost:3000/api/notes", {
       method: "POST",
       headers: {
@@ -26,8 +32,21 @@ const AddButton: React.FC<Props> = ({ className, userInfo }) => {
       return;
     }
     const { newNote } = await res.json();
-    setNotes([newNote, ...notes]);
+    debugger;
+    if (
+      selectedNote &&
+      notes.find((n) => n._id === selectedNote._id) &&
+      selectedNote.title === "" &&
+      selectedNote.content === ""
+    ) {
+      debugger;
+      setNotes([newNote, ...notes.filter((n) => n._id !== selectedNote._id)]);
+      await deleteNote(selectedNote._id);
+    } else {
+      setNotes([newNote, ...notes]);
+    }
     setSelectedNote(newNote);
+    enableAddNote = true;
   };
 
   return (

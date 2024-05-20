@@ -1,9 +1,8 @@
 "use client";
 import NoteType from "@/app/types/Note";
-import Editor from "../../components/editor/Editor";
+import EditorPage from "@/app/components/editor";
 
 import React from "react";
-import { set } from "lodash";
 
 interface ExpandNoteProps {
   note?: NoteType;
@@ -12,8 +11,15 @@ interface ExpandNoteProps {
 const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
   const getContentAttributes = (c: string) => {
     const splitContent = c.split("</h1>");
-    const title = splitContent[0] + "</h1>";
-    const content = splitContent[1];
+    let title = splitContent[0] + "</h1>";
+    let content = splitContent[1];
+    debugger;
+    if (title === "<h1></h1>") {
+      title = "";
+    }
+    if (content === "<p></p>") {
+      content = "";
+    }
     return { title, content };
   };
 
@@ -80,11 +86,7 @@ const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
 
   return (
     <>
-      <div className="h-screen w-[80vw] flex flex-col">
-        <div className="flex my-1 mx-2 h-[99vh]">
-          <Editor throttledUpdate={throttledUpdate} />
-        </div>
-      </div>
+      <EditorPage throttledUpdate={throttledUpdate} />
     </>
   );
 };

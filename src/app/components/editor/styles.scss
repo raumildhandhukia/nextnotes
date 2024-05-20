@@ -6,16 +6,8 @@
   ul,
   ol {
     padding: 0 1rem;
+    margin: 0;
   }
-
-  //   h1,
-  //   h2,
-  //   h3,
-  //   h4,
-  //   h5,
-  //   h6 {
-  //     line-height: 1.1;
-  //   }
 
   code {
     background-color: rgba(#616161, 0.1);
@@ -60,6 +52,12 @@
     border-top: 2px solid rgba(#0d0d0d, 0.1);
     margin: 2rem 0;
   }
+  p {
+    margin: 0;
+  }
+  li {
+    margin: 0;
+  }
 
   ul[data-type="taskList"] {
     list-style: none;
@@ -90,7 +88,6 @@
   display: flex;
   flex-direction: column;
   max-height: auto;
-  width: 70vw;
 
   &__header {
     align-items: center;
@@ -109,7 +106,6 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: 1.25rem 1rem;
-    -webkit-overflow-scrolling: touch;
   }
 
   &__footer {

@@ -1,6 +1,5 @@
 "use client";
 import "./styles.scss";
-import Note from "../../types/Note";
 import CharacterCount from "@tiptap/extension-character-count";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -21,7 +20,8 @@ const CustomDocument = Document.extend({
 });
 
 const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
-  const { notes, setNotes, selectedNote } = useContext(Notes_Context);
+  const { notes, setNotes, selectedNote, setSelectedNote, isExpanded } =
+    useContext(Notes_Context);
 
   const getContent = () => {
     return "" + selectedNote?.title + selectedNote?.content;
@@ -35,10 +35,8 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     const updatedNotes = notes.map((n) =>
       n._id === updatedNote._id ? { ...updatedNote } : { ...n }
     );
-    updatedNotes.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-    });
     setNotes(updatedNotes);
+    setSelectedNote(updatedNote);
   };
 
   const editor = useEditor({
@@ -56,7 +54,6 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
           if (node.type.name === "heading") {
             return "What’s the title?";
           }
-
           return "Can you add some further context?";
         },
       }),
@@ -75,9 +72,13 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   });
 
   return (
-    <div className="editor">
+    <div
+      className={`editor transition-all w-[78vw] ${
+        isExpanded ? "mx-3" : "mx-[9vw]"
+      }`}
+      key={selectedNote?._id}
+    >
       {editor && <MenuBar editor={editor} />}
-
       <EditorContent className="editor__content" editor={editor} />
     </div>
   );
