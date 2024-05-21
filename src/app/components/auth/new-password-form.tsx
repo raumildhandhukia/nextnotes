@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useTransition, useState } from "react";
-import { newPassword } from "@/actions/new-password";
+import { newPassword } from "@/actions/auth/new-password";
 import { CardWrapper } from "@/app/components/auth/card-wrapper";
 import * as z from "zod";
 import { useForm } from "react-hook-form";

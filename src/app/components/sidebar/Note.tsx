@@ -1,17 +1,10 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import NoteType from "../../types/Note";
 import { useRouter } from "next/navigation";
+import { deleteNote } from "@/actions/notes/delete";
 
-import "./Note.css";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import "./note.css";
 import {
   Card,
   CardContent,
@@ -20,17 +13,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import DeleteButton from "./DeleteButton";
+import { ShareButton } from "./share-button";
+import { DeleteButton } from "./delete-button";
+import { Notes_Context } from "@/context/Context";
 
 interface Props {
-  note: NoteType;
   isSelected: boolean;
-  toggleSelectNote: React.Dispatch<React.SetStateAction<NoteType | null>>;
+  note: NoteType;
 }
 
-const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
-  let className = "note-base";
+export const Note: React.FC<Props> = ({ isSelected, note }) => {
+  const { notes, setNotes, setSelectedNote, isExpanded } =
+    useContext(Notes_Context);
+  let className = `note-base overflow-hidden transition-all ${
+    isExpanded ? "w-[16vw]" : "invisible w-0"
+  }`;
   if (isSelected) {
     className += " box-shadow selected-note";
   } else {
@@ -43,17 +40,25 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
     if (!str) return <div className="text-gray-500 italic">{def}</div>;
     return str;
   };
-  const RenderPopup = () => {
-    return (
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button>Share</Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>Feature Coming Soon</DropdownMenuLabel>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    );
+
+  const toggleSelectNote = async (note: NoteType) => {
+    let deleteNoteId: string = "";
+    setSelectedNote((prevNote) => {
+      if (
+        prevNote &&
+        notes.find((n) => n._id === prevNote._id) &&
+        prevNote.title === "" &&
+        prevNote.content === "" &&
+        prevNote._id !== note._id
+      ) {
+        deleteNoteId = prevNote._id;
+      }
+      return note;
+    });
+    if (deleteNoteId.length > 0) {
+      setNotes(notes.filter((n) => n._id !== deleteNoteId));
+      await deleteNote(deleteNoteId);
+    }
   };
 
   return (
@@ -67,7 +72,7 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
     >
       <CardHeader>
         <CardTitle className="line-clamp-1">
-          {convertHTMLtoTextWithLineBreaks(note.title, "Enter Title")}
+          {convertHTMLtoTextWithLineBreaks(note.title, "title")}
         </CardTitle>
         <CardDescription>
           <p className="line-clamp-2">
@@ -81,12 +86,10 @@ const Note: React.FC<Props> = ({ note, isSelected, toggleSelectNote }) => {
           </p>
         </CardDescription>
       </CardHeader>
-      <CardFooter className="flex justify-between -my-4">
-        <RenderPopup />
+      <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
+        <ShareButton />
         <DeleteButton _id={note._id} />
       </CardFooter>
     </Card>
   );
 };
-
-export default Note;

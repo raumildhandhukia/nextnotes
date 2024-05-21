@@ -1,33 +1,27 @@
 "use client";
 
 import { Button } from "../../../components/ui/button";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Notes_Context } from "@/context/Context";
+import { deleteNote } from "@/actions/notes/delete";
+import { MdDelete } from "react-icons/md";
 
 interface Props {
   _id: string;
 }
 
-const DeleteButton: React.FC<Props> = ({ _id }) => {
+export const DeleteButton: React.FC<Props> = ({ _id }) => {
   const router = useRouter();
   const { notes, setNotes, selectedNote } = useContext(Notes_Context);
+
   const handleDeleteNote = async () => {
-    const res = await fetch(`http://localhost:3000/api/notes/${_id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!res.ok) {
+    const res = await deleteNote(_id);
+    if (res.error) {
       console.error("Failed to add note");
       return;
     }
-    const updatedNotes = notes.filter((n) => n._id !== _id);
-    updatedNotes.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-    });
-    setNotes(updatedNotes);
+    setNotes(notes.filter((n) => n._id !== _id));
     if (selectedNote?._id === _id) {
       router.push("/notes");
     }
@@ -35,15 +29,13 @@ const DeleteButton: React.FC<Props> = ({ _id }) => {
 
   return (
     <Button
-      variant="outline"
+      variant="destructive"
       onClick={(e) => {
         e.stopPropagation();
         handleDeleteNote();
       }}
     >
-      Delete
+      <MdDelete />
     </Button>
   );
 };
-
-export default DeleteButton;

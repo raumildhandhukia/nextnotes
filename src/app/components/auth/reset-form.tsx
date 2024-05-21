@@ -1,6 +1,6 @@
 "use client";
 import { useTransition, useState } from "react";
-import { reset } from "@/actions/reset";
+import { reset } from "@/actions/auth/reset";
 import { CardWrapper } from "@/app/components/auth/card-wrapper";
 import * as z from "zod";
 import { useForm } from "react-hook-form";

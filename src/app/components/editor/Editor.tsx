@@ -1,7 +1,9 @@
 "use client";
 import "./styles.scss";
-import Note from "../../types/Note";
+import "./dark.scss";
 import CharacterCount from "@tiptap/extension-character-count";
+// import { Color } from "@tiptap/extension-color";
+// import TextStyle from "@tiptap/extension-text-style";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
 import Highlight from "@tiptap/extension-highlight";
@@ -11,7 +13,8 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useContext } from "react";
 import { Notes_Context } from "@/context/Context";
-import MenuBar from "./MenuBar";
+import { MenuBar } from "./menu-bar";
+import { useTheme } from "@/hooks/use-theme";
 
 interface EditorProps {
   throttledUpdate: Function;
@@ -20,8 +23,10 @@ const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
-const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
-  const { notes, setNotes, selectedNote } = useContext(Notes_Context);
+export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
+  const { notes, setNotes, selectedNote, setSelectedNote, isExpanded } =
+    useContext(Notes_Context);
+  const { theme } = useTheme();
 
   const getContent = () => {
     return "" + selectedNote?.title + selectedNote?.content;
@@ -35,10 +40,8 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     const updatedNotes = notes.map((n) =>
       n._id === updatedNote._id ? { ...updatedNote } : { ...n }
     );
-    updatedNotes.sort((a, b) => {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
-    });
     setNotes(updatedNotes);
+    setSelectedNote(updatedNote);
   };
 
   const editor = useEditor({
@@ -47,6 +50,10 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     },
     content: getContent(),
     extensions: [
+      // TextStyle,
+      // Color.configure({
+      //   types: ["textStyle"],
+      // }),
       CustomDocument,
       StarterKit.configure({
         document: false,
@@ -56,7 +63,6 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
           if (node.type.name === "heading") {
             return "What’s the title?";
           }
-
           return "Can you add some further context?";
         },
       }),
@@ -73,14 +79,22 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
       },
     },
   });
+  // const textColor = theme === "dark" ? "#fff" : "#000";
+  // editor?.commands.unsetColor();
+  // editor?.commands.setColor(textColor);
 
   return (
-    <div className="editor">
+    <div
+      className={`editor transition-all w-[78vw] ${
+        isExpanded ? "mx-3" : "mx-[9vw]"
+      }`}
+      key={selectedNote?._id}
+    >
       {editor && <MenuBar editor={editor} />}
-
-      <EditorContent className="editor__content" editor={editor} />
+      <EditorContent
+        className="editor__content dark:bg-black"
+        editor={editor}
+      />
     </div>
   );
 };
-
-export default Editor;
