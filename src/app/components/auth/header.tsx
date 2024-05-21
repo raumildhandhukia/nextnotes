@@ -17,7 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ label }) => {
       <h1
         className={cn(
           font,
-          "text-3xl font-semibold text-zinc-900",
+          "text-3xl font-semibold text-zinc-900 dark:text-zinc-200",
           font.className
         )}
       >
