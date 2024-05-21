@@ -3,6 +3,8 @@
 
 🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js.
 
+![next-notes-gif](https://github.com/raumildhandhukia/nextnotes/assets/72497060/40dea818-5cb2-4869-830c-fbedab7464ac)
+
 ![NextNotes](https://github.com/raumildhandhukia/nextnotes/assets/72497060/ee173701-ae96-4753-a7db-2ff9f9e1f2a3)
 
 
