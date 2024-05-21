@@ -1,19 +1,18 @@
 // Desc: This file contains the SideBar component which is responsible for rendering the sidebar of the application.
 "use client";
 import React, { useState, useContext } from "react";
-import NoteList from "./NoteList";
-import AddButton from "./AddButton";
-import Profile from "./Profile";
+import { NoteList } from "./note-list";
+import { AddButton } from "./add-button";
+import { Profile } from "@/app/components/sidebar/profile";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { Button } from "@/components/ui/button";
-import SideBarItem from "@/app/components/sidebar/SideBarItem";
+import { SideBarItem } from "@/app/components/sidebar/sidebar-item";
 import { MdNotes } from "react-icons/md";
 import { GrDocumentNotes } from "react-icons/gr";
 import Image from "next/image";
 import { Notes_Context } from "@/context/Context";
 
-interface Props {}
-const SideBar: React.FC<Props> = ({}) => {
+export const SideBar: React.FC = () => {
   const [yourNotesState, setYourNotesState] = useState<boolean>(true);
   const [shareNotesState, setShareNotesState] = useState<boolean>(false);
   const [prevStates, setPrevStates] = useState<boolean[]>([]);
@@ -33,9 +32,9 @@ const SideBar: React.FC<Props> = ({}) => {
   };
 
   return (
-    <aside className=" h-screen w-max">
-      <nav className=" h-screen flex flex-col bg-white border-r shadow-sm ">
-        <div className="p-4 pb-2 flex justify-between items-center h-[10vh]">
+    <aside className="h-screen w-max ">
+      <nav className="h-screen flex flex-col border-r shadow-sm ">
+        <div className="p-4 pb-2 flex justify-between items-center h-[10vh] ">
           <Image
             src="/next-notes.png"
             alt="Next.js Logo"
@@ -101,5 +100,3 @@ const SideBar: React.FC<Props> = ({}) => {
     </aside>
   );
 };
-
-export default SideBar;

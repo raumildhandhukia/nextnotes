@@ -2,15 +2,15 @@
 import { Notes_Context } from "../../../context/Context";
 import React, { useEffect, useContext } from "react";
 import NoteType from "../../types/Note";
-import Note from "./Note";
+import { Note } from "@/app/components/sidebar/note";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
-import AnimatedListItem from "./AnimatedListItem";
+import { AnimatedListItem } from "./animated-list-item";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface Props {}
 
-const NoteList: React.FC<Props> = ({}) => {
+export const NoteList: React.FC<Props> = ({}) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
   const user = useCurrentUser();
@@ -57,5 +57,3 @@ const NoteList: React.FC<Props> = ({}) => {
     </div>
   );
 };
-
-export default NoteList;

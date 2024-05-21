@@ -8,7 +8,7 @@ interface ExpandNoteProps {
   note?: NoteType;
 }
 
-const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
+export const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
   const getContentAttributes = (c: string) => {
     const splitContent = c.split("</h1>");
     let title = splitContent[0] + "</h1>";
@@ -90,5 +90,3 @@ const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
     </>
   );
 };
-
-export default ExpandNote;

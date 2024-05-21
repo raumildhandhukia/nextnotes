@@ -1,4 +1,4 @@
-import Editor from "@/app/components/editor/Editor";
+import { Editor } from "@/app/components/editor/editor";
 import { useContext } from "react";
 import { Notes_Context } from "@/context/Context";
 interface EditorProps {

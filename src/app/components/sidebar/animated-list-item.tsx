@@ -6,7 +6,9 @@ interface AnimatedListItemProps {
 let base = 4;
 let t = (d: number) => d * base;
 
-const AnimatedListItem: React.FC<AnimatedListItemProps> = ({ children }) => {
+export const AnimatedListItem: React.FC<AnimatedListItemProps> = ({
+  children,
+}) => {
   return (
     <motion.div
       className="relative"
@@ -35,4 +37,3 @@ const AnimatedListItem: React.FC<AnimatedListItemProps> = ({ children }) => {
     </motion.div>
   );
 };
-export default AnimatedListItem;

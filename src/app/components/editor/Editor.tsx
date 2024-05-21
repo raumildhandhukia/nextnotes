@@ -10,7 +10,7 @@ import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import React, { useContext } from "react";
 import { Notes_Context } from "@/context/Context";
-import MenuBar from "./MenuBar";
+import { MenuBar } from "./menu-bar";
 
 interface EditorProps {
   throttledUpdate: Function;
@@ -19,7 +19,7 @@ const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
-const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
+export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   const { notes, setNotes, selectedNote, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
 
@@ -79,9 +79,10 @@ const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
       key={selectedNote?._id}
     >
       {editor && <MenuBar editor={editor} />}
-      <EditorContent className="editor__content" editor={editor} />
+      <EditorContent
+        className="editor__content dark:bg-black"
+        editor={editor}
+      />
     </div>
   );
 };
-
-export default Editor;

@@ -5,12 +5,13 @@ import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Notes_Context } from "@/context/Context";
 import { deleteNote } from "@/actions/notes/delete";
+import { MdDelete } from "react-icons/md";
 
 interface Props {
   _id: string;
 }
 
-const DeleteButton: React.FC<Props> = ({ _id }) => {
+export const DeleteButton: React.FC<Props> = ({ _id }) => {
   const router = useRouter();
   const { notes, setNotes, selectedNote } = useContext(Notes_Context);
 
@@ -28,15 +29,13 @@ const DeleteButton: React.FC<Props> = ({ _id }) => {
 
   return (
     <Button
-      variant="outline"
+      variant="destructive"
       onClick={(e) => {
         e.stopPropagation();
         handleDeleteNote();
       }}
     >
-      Delete
+      <MdDelete />
     </Button>
   );
 };
-
-export default DeleteButton;

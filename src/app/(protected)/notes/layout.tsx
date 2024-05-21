@@ -1,4 +1,4 @@
-import SideBar from "@/app/components/sidebar/SideBar";
+import { SideBar } from "@/app/components/sidebar/side-bar";
 import { auth } from "@/auth";
 import { SessionProvider } from "next-auth/react";
 
@@ -10,7 +10,7 @@ const NoteLayout: React.FC<NoteLayoutProps> = async ({ children }) => {
   const session = await auth();
   return (
     <SessionProvider session={session}>
-      <main>
+      <main className="dark">
         <div className="flex">
           <SideBar />
           <div className="">{children}</div>

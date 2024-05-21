@@ -1,9 +1,9 @@
 "use client";
-import "./MenuBar.scss";
+import "./menu-bar.scss";
 
 import React, { Fragment } from "react";
 
-import MenuItem from "./MenuItem";
+import { MenuItem } from "./menu-item";
 
 interface Props {
   editor: any;
@@ -17,7 +17,7 @@ interface Item {
   type?: string;
 }
 
-const MenuBar: React.FC<Props> = ({ editor }) => {
+export const MenuBar: React.FC<Props> = ({ editor }) => {
   const items: Item[] = [
     {
       icon: "ri-bold",
@@ -150,5 +150,3 @@ const MenuBar: React.FC<Props> = ({ editor }) => {
     </div>
   );
 };
-
-export default MenuBar;

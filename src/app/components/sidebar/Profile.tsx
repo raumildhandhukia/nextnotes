@@ -18,7 +18,7 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface ProfileProps {}
 
-const Profile: React.FC<ProfileProps> = ({}) => {
+export const Profile: React.FC<ProfileProps> = ({}) => {
   const user = useCurrentUser();
   const fallBackText =
     user?.name
@@ -50,5 +50,3 @@ const Profile: React.FC<ProfileProps> = ({}) => {
 
   return <RenderDrawer />;
 };
-
-export default Profile;

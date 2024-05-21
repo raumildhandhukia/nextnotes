@@ -9,9 +9,21 @@
     margin: 0;
   }
 
+  .dark & {
+    ul,
+    ol {
+      color: #fff;
+    }
+  }
+
   code {
     background-color: rgba(#616161, 0.1);
     color: #616161;
+  }
+
+  .dark code {
+    background-color: rgba(#fff, 0.1);
+    color: #fff;
   }
 
   pre {
@@ -29,8 +41,20 @@
     }
   }
 
+  .dark pre {
+    background: #e0e0e0;
+    color: black;
+
+    code: {
+      color: inherit;
+    }
+  }
+
   mark {
     background-color: #faf594;
+  }
+  .dark mark {
+    background-color: #ffeb3b;
   }
 
   img {
@@ -40,6 +64,10 @@
 
   hr {
     margin: 1rem 0;
+  }
+
+  .dark hr {
+    border-color: #e0e0e0;
   }
 
   blockquote {
@@ -84,7 +112,7 @@
   background-color: #fff;
   border: 3px solid #0d0d0d;
   border-radius: 0.75rem;
-  color: #0d0d0d;
+  color: #00ffd9;
   display: flex;
   flex-direction: column;
   max-height: auto;

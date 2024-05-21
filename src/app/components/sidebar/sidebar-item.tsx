@@ -8,7 +8,7 @@ interface SideBarIconProps {
   children?: React.ReactNode;
 }
 
-const SideBarItem = ({
+export const SideBarItem = ({
   icon,
   text,
   active,
@@ -18,7 +18,7 @@ const SideBarItem = ({
   children,
 }: SideBarIconProps) => {
   return (
-    <div>
+    <div className="">
       <li
         onClick={() => {
           onClick((prev) => {
@@ -28,8 +28,8 @@ const SideBarItem = ({
         }}
         className={`group h-[5vh] relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors ${
           active
-            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
-            : "hover:bg-indigo-50 text-grey-600"
+            ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800 dark:from-indigo-800 dark:to-indigo-700 dark:text-indigo-100"
+            : "hover:bg-indigo-50 text-grey-600 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-gray-100"
         }`}
       >
         {icon}
@@ -50,5 +50,3 @@ const SideBarItem = ({
     </div>
   );
 };
-
-export default SideBarItem;

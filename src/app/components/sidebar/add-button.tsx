@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-const AddButton: React.FC<Props> = ({ className }) => {
+export const AddButton: React.FC<Props> = ({ className }) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
   let enableAddNote = true;
@@ -50,11 +50,9 @@ const AddButton: React.FC<Props> = ({ className }) => {
   };
 
   return (
-    <Button variant="outline" className={className} onClick={handleAddNote}>
+    <Button className={className} onClick={handleAddNote}>
       <PlusIcon className="mr-2 h-4 w-4" />
       note
     </Button>
   );
 };
-
-export default AddButton;

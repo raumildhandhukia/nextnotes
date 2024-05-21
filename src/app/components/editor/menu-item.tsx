@@ -1,4 +1,4 @@
-import "./MenuItem.scss";
+import "./menu-item.scss";
 import "remixicon/fonts/remixicon.css";
 
 import React from "react";
@@ -13,7 +13,12 @@ interface Item {
   type?: string;
 }
 
-const MenuItem: React.FC<Item> = ({ icon, title, action, isActive = null }) => (
+export const MenuItem: React.FC<Item> = ({
+  icon,
+  title,
+  action,
+  isActive = null,
+}) => (
   <button
     className={`menu-item${isActive && isActive() ? " is-active" : ""}`}
     onClick={action}
@@ -22,5 +27,3 @@ const MenuItem: React.FC<Item> = ({ icon, title, action, isActive = null }) => (
     <i className={icon}></i>
   </button>
 );
-
-export default MenuItem;

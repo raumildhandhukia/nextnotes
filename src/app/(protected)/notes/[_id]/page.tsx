@@ -1,6 +1,6 @@
 import React from "react";
 
-import ExpandNote from "./ExpandNote";
+import { ExpandNote } from "./expand-note";
 
 interface Props {
   params: { _id: string };
