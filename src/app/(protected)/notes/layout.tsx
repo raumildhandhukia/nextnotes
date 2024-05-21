@@ -10,7 +10,7 @@ const NoteLayout: React.FC<NoteLayoutProps> = async ({ children }) => {
   const session = await auth();
   return (
     <SessionProvider session={session}>
-      <main className="dark">
+      <main className="">
         <div className="flex">
           <SideBar />
           <div className="">{children}</div>

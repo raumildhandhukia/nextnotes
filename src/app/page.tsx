@@ -12,11 +12,11 @@ export default function SignInPage() {
   // const router = useRouter();
   // router.push("/auth/login");
   return (
-    <main className="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-zinc-800 via-zinc-200 to-zinc-600">
+    <main className="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-zinc-800 via-zinc-200 to-zinc-600 dark:from-gray-900 dark:via-gray-600 dark:to-gray-900">
       <div className="space-y-6">
         <h1
           className={cn(
-            "text-6xl font-semibold text-gray-800 drop-shadow-md",
+            "text-6xl font-semibold text-gray-800 drop-shadow-md dark:text-indigo-200",
             font.className
           )}
         >
@@ -30,7 +30,11 @@ export default function SignInPage() {
             </Button>
           </LoginButton>
           <RegisterButton>
-            <Button variant="destructive" size="lg">
+            <Button
+              variant="destructive"
+              size="lg"
+              className="dark: bg-red-800"
+            >
               Register
             </Button>
           </RegisterButton>

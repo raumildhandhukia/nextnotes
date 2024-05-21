@@ -11,6 +11,7 @@ import { MdNotes } from "react-icons/md";
 import { GrDocumentNotes } from "react-icons/gr";
 import Image from "next/image";
 import { Notes_Context } from "@/context/Context";
+import { useTheme } from "@/hooks/use-theme";
 
 export const SideBar: React.FC = () => {
   const [yourNotesState, setYourNotesState] = useState<boolean>(true);
@@ -18,6 +19,7 @@ export const SideBar: React.FC = () => {
   const [prevStates, setPrevStates] = useState<boolean[]>([]);
 
   const { isExpanded, setIsExpanded } = useContext(Notes_Context);
+  const { theme } = useTheme();
 
   const handleExpansion = () => {
     if (isExpanded) {
@@ -36,14 +38,15 @@ export const SideBar: React.FC = () => {
       <nav className="h-screen flex flex-col border-r shadow-sm ">
         <div className="p-4 pb-2 flex justify-between items-center h-[10vh] ">
           <Image
-            src="/next-notes.png"
-            alt="Next.js Logo"
+            src={`/next-notes${theme === "dark" ? "-dark" : ""}.png`}
+            alt="next-notes-logo"
             width="150"
             height="20"
             className={`overflow-hidden transition-all ${
               isExpanded ? "w-max mx-2" : "w-0"
             }`}
           ></Image>
+
           <Button
             onClick={handleExpansion}
             variant="outline"
