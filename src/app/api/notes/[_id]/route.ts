@@ -1,4 +1,3 @@
-import NoteModel from "../../../../models/note";
 import { db } from "@/lib/db";
 
 export async function DELETE(
