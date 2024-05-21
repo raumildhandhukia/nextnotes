@@ -34,8 +34,9 @@ export const SideBar: React.FC = () => {
   };
 
   return (
-    <aside className="h-screen w-max ">
+    <aside className="w-max">
       <nav className="h-screen flex flex-col border-r shadow-sm ">
+        {/* 10vh height */}
         <div className="p-4 pb-2 flex justify-between items-center h-[10vh] ">
           <Image
             src={`/next-notes${theme === "dark" ? "-dark" : ""}.png`}
@@ -60,9 +61,10 @@ export const SideBar: React.FC = () => {
             )}
           </Button>
         </div>
+        {/* ???vh height */}
         <ul
           className={`flex-1 px-3 ${
-            isExpanded ? "w-[20vw] overflow-y-scroll scrollbar-hidden" : ""
+            isExpanded ? "w-[25vw] scrollbar-hidden" : ""
           }`}
         >
           <hr />
@@ -89,7 +91,8 @@ export const SideBar: React.FC = () => {
           </SideBarItem>
           <hr />
         </ul>
-        <div className="border-t flex p-3 h-[8vh]">
+
+        <div className="border-t flex p-3">
           <Profile />
           <div
             className={`flex justify-end items-center overflow-hidden transition-all ${

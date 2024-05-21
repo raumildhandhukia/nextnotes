@@ -85,8 +85,8 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
 
   return (
     <div
-      className={`editor transition-all w-[78vw] ${
-        isExpanded ? "mx-3" : "mx-[9vw]"
+      className={`editor transition-all w-[72.5vw] ${
+        isExpanded ? "mx-3" : "mx-[11vw]"
       }`}
       key={selectedNote?._id}
     >

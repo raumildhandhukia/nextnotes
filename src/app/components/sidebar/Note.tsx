@@ -26,7 +26,7 @@ export const Note: React.FC<Props> = ({ isSelected, note }) => {
   const { notes, setNotes, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
   let className = `note-base overflow-hidden transition-all ${
-    isExpanded ? "w-[16vw]" : "invisible w-0"
+    isExpanded ? "w-[20vw]" : "invisible w-0"
   }`;
   if (isSelected) {
     className += " box-shadow selected-note";
