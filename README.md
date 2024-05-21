@@ -3,12 +3,17 @@
 
 🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js.
 
+![next-notes-updated](https://github.com/raumildhandhukia/nextnotes/assets/72497060/97d262ef-9231-4f5a-b503-edfca1fbbb4d)
+
+
+
 ## Features
 
 - OAuth Integration: Seamless authentication through Google or GitHub.
 - Realtime Data Storage: Instantaneous data updates and synchronization.
 - Collaborative Note Writing: Real-time collaboration capabilities for note-taking.
 - Modern, User-Friendly UI: Intuitive and aesthetically pleasing user interface design.
+- Light/Dark Mode.
 
 ## Tech
 
