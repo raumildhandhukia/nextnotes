@@ -12,6 +12,7 @@
 - Realtime Data Storage: Instantaneous data updates and synchronization.
 - Collaborative Note Writing: Real-time collaboration capabilities for note-taking.
 - Modern, User-Friendly UI: Intuitive and aesthetically pleasing user interface design.
+- Light/Dark Mode.
 
 ## Tech
 
