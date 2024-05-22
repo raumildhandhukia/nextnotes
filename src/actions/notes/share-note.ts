@@ -3,6 +3,14 @@
 import { db } from "@/lib/db";
 import NoteType from "@/app/types/Note";
 
+interface NoteExt extends NoteType {
+  owner: {
+    name: string | null;
+    email: string | null;
+    image: string | null;
+  } | null;
+}
+
 export const getNotesSharedWithUser = async (userId: string | undefined) => {
   try {
     if (!userId) {
@@ -18,12 +26,29 @@ export const getNotesSharedWithUser = async (userId: string | undefined) => {
         updatedAt: "desc",
       },
     });
-    const updatedNotes: NoteType[] = notes.map((note) => {
-      return {
-        ...note,
-        _id: note.id,
-      };
-    });
+    const updatedNotes: NoteExt[] = await Promise.all(
+      // Await the Promise returned by Promise.all()
+      notes.map(async (note) => {
+        // Make the callback function async
+        const ownerId = note.userId;
+        const owner = await db.user.findUnique({
+          // Await the Promise returned by db.user.findUnique()
+          where: {
+            id: ownerId,
+          },
+          select: {
+            name: true,
+            email: true,
+            image: true,
+          },
+        });
+        return {
+          ...note,
+          _id: note.id,
+          owner,
+        };
+      })
+    );
 
     return updatedNotes;
   } catch (error) {

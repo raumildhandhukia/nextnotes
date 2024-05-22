@@ -21,9 +21,19 @@ interface Props {
   isSelected: boolean;
   note: NoteType;
   userOwns?: boolean;
+  ownerInfo?: {
+    name: string | null;
+    email: string | null;
+    image: string | null;
+  };
 }
 
-export const Note: React.FC<Props> = ({ isSelected, note, userOwns }) => {
+export const Note: React.FC<Props> = ({
+  isSelected,
+  note,
+  userOwns,
+  ownerInfo,
+}) => {
   const { notes, setNotes, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
   let className = `note-base overflow-hidden transition-all ${
@@ -97,6 +107,11 @@ export const Note: React.FC<Props> = ({ isSelected, note, userOwns }) => {
         <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
           <ShareButton noteId={note._id} />
           <DeleteButton noteId={note._id} />
+        </CardFooter>
+      )}
+      {ownerInfo && (
+        <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
+          <p className="text-gray-500 italic">Shared By: {ownerInfo.name}</p>
         </CardFooter>
       )}
     </Card>

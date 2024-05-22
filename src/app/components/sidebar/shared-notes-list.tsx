@@ -8,6 +8,14 @@ import { AnimatedListItem } from "./animated-list-item";
 import { getNotesSharedWithUser } from "@/actions/notes/share-note";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
+interface NoteExt extends NoteType {
+  owner: {
+    name: string | null;
+    email: string | null;
+    image: string | null;
+  } | null;
+}
+
 interface Props {}
 
 export const SharedNoteList: React.FC<Props> = ({}) => {
@@ -23,7 +31,7 @@ export const SharedNoteList: React.FC<Props> = ({}) => {
       if (!res) {
         return;
       }
-      const notes = res as NoteType[];
+      const notes = res as NoteExt[];
       setSharedNotes(notes);
     }
     getNotes();
@@ -32,15 +40,18 @@ export const SharedNoteList: React.FC<Props> = ({}) => {
   return (
     <div className="flex max-h-[67vh] flex-col items-center flex-grow p-2 overflow-y-scroll ">
       <AnimatePresence initial={false}>
-        {sharedNotes.map((note) => (
-          <AnimatedListItem key={note._id}>
-            <Note
-              key={note._id}
-              isSelected={note._id === selectedNote?._id}
-              note={note}
-            />
-          </AnimatedListItem>
-        ))}
+        {sharedNotes.map(({ owner, ...note }: NoteExt) => {
+          return (
+            <AnimatedListItem key={note._id}>
+              <Note
+                key={note._id}
+                isSelected={note._id === selectedNote?._id}
+                note={note}
+                ownerInfo={owner}
+              />
+            </AnimatedListItem>
+          );
+        })}
       </AnimatePresence>
     </div>
   );
