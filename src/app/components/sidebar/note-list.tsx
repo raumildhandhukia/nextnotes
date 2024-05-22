@@ -10,6 +10,8 @@ import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface Props {}
 
+const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
+
 export const NoteList: React.FC<Props> = ({}) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
@@ -24,7 +26,7 @@ export const NoteList: React.FC<Props> = ({}) => {
 
   useEffect(() => {
     async function getNotes() {
-      const res = await fetch(`http://localhost:3000/api/notes/for/${userId}`, {
+      const res = await fetch(`${DOMAIN}/api/notes/for/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

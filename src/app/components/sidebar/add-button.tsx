@@ -11,6 +11,8 @@ interface Props {
   className?: string;
 }
 
+const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
+
 export const AddButton: React.FC<Props> = ({ className }) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
@@ -20,7 +22,7 @@ export const AddButton: React.FC<Props> = ({ className }) => {
   const handleAddNote = async () => {
     if (!enableAddNote) return;
     enableAddNote = false;
-    const res = await fetch("http://localhost:3000/api/notes", {
+    const res = await fetch(`${DOMAIN}/api/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
