@@ -1,6 +1,6 @@
 "use client";
 import NoteType from "@/app/types/Note";
-import EditorPage from "@/app/components/editor";
+import EditorPage from "@/app/components/editor/editor-page";
 
 import React from "react";
 
