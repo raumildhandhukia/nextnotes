@@ -34,6 +34,7 @@
 Install the dependencies and devDependencies and start the server.
 
 ## Environment Variables
+
 #### 1) .env.local
 ```sh
 GOOGLE_CLIENT_ID=
@@ -42,10 +43,17 @@ GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
 NEXTAUTH_SECRET=
 RESEND_API_KEY=
+NEXT_PUBLIC_APP_URL=
 ```
 #### 2) .env
 ```sh
 DATABASE_URL=
+```
+
+For testing production builds in local environments, 
+(if Next gives error)
+```sh
+NEXT_AUTH_HOST=
 ```
 
 ####  For development environments
@@ -57,5 +65,6 @@ npm run dev
 #### For production environments...
 
 ```sh
-not available for poduction yet
+npm run build
+npm run start
 ```
