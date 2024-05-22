@@ -5,7 +5,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import React, { useContext, useState } from "react";
 import { Notes_Context } from "@/context/Context";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { deleteNote } from "@/actions/notes/delete";
+import { deleteNote } from "@/actions/notes/delete-note";
 
 interface Props {
   className?: string;

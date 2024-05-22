@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { AnimatedListItem } from "./animated-list-item";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import Provider from "@/context/SharedNotesContextProvider";
 
 interface Props {}
 
@@ -44,18 +45,21 @@ export const NoteList: React.FC<Props> = ({}) => {
   }, [setNotes, setSelectedNote, userId]);
 
   return (
-    <div className="flex max-h-[67vh] flex-col items-center flex-grow p-2 overflow-y-scroll ">
-      <AnimatePresence initial={false}>
-        {notes.map((note) => (
-          <AnimatedListItem key={note._id}>
-            <Note
-              key={note._id}
-              isSelected={note._id === selectedNote?._id}
-              note={note}
-            />
-          </AnimatedListItem>
-        ))}
-      </AnimatePresence>
-    </div>
+    <Provider>
+      <div className="flex max-h-[67vh] flex-col items-center flex-grow p-2 overflow-y-scroll ">
+        <AnimatePresence initial={false}>
+          {notes.map((note) => (
+            <AnimatedListItem key={note._id}>
+              <Note
+                key={note._id}
+                isSelected={note._id === selectedNote?._id}
+                note={note}
+                userOwns
+              />
+            </AnimatedListItem>
+          ))}
+        </AnimatePresence>
+      </div>
+    </Provider>
   );
 };

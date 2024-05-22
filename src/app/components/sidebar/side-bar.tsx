@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useContext } from "react";
 import { NoteList } from "./note-list";
+import { SharedNoteList } from "./shared-notes-list";
 import { AddButton } from "./add-button";
 import { Profile } from "@/app/components/sidebar/profile-section";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
@@ -87,7 +88,7 @@ export const SideBar: React.FC = () => {
             onClick={setShareNotesState}
             otherItemState={setYourNotesState}
           >
-            <p>Feature Coming Soon</p>
+            <SharedNoteList />
           </SideBarItem>
           <hr />
         </ul>
