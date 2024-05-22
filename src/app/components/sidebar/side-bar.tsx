@@ -3,7 +3,7 @@
 import React, { useState, useContext } from "react";
 import { NoteList } from "./note-list";
 import { AddButton } from "./add-button";
-import { Profile } from "@/app/components/sidebar/profile";
+import { Profile } from "@/app/components/sidebar/Profile";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
 import { Button } from "@/components/ui/button";
 import { SideBarItem } from "@/app/components/sidebar/sidebar-item";

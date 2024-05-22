@@ -4,7 +4,7 @@ import NoteType from "../../types/Note";
 import { useRouter } from "next/navigation";
 import { deleteNote } from "@/actions/notes/delete";
 
-import "./note.css";
+import "./Note.css";
 import {
   Card,
   CardContent,

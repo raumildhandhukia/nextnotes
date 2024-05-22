@@ -2,7 +2,7 @@
 import { Notes_Context } from "../../../context/Context";
 import React, { useEffect, useContext } from "react";
 import NoteType from "../../types/Note";
-import { Note } from "@/app/components/sidebar/note";
+import { Note } from "@/app/components/sidebar/Note";
 import { useRouter } from "next/navigation";
 import { AnimatePresence } from "framer-motion";
 import { AnimatedListItem } from "./animated-list-item";
