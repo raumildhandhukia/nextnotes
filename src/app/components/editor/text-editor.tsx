@@ -2,8 +2,6 @@
 import "./styles.scss";
 import "./dark.scss";
 import CharacterCount from "@tiptap/extension-character-count";
-// import { Color } from "@tiptap/extension-color";
-// import TextStyle from "@tiptap/extension-text-style";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
 import Highlight from "@tiptap/extension-highlight";
@@ -50,10 +48,6 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     },
     content: getContent(),
     extensions: [
-      // TextStyle,
-      // Color.configure({
-      //   types: ["textStyle"],
-      // }),
       CustomDocument,
       StarterKit.configure({
         document: false,
@@ -79,9 +73,6 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
       },
     },
   });
-  // const textColor = theme === "dark" ? "#fff" : "#000";
-  // editor?.commands.unsetColor();
-  // editor?.commands.setColor(textColor);
 
   return (
     <div
