@@ -2,6 +2,7 @@
 import "./styles.scss";
 import "./dark.scss";
 import CharacterCount from "@tiptap/extension-character-count";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
 import Highlight from "@tiptap/extension-highlight";
@@ -9,10 +10,15 @@ import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import React, { useContext } from "react";
 import { Notes_Context } from "@/context/Context";
 import { MenuBar } from "./menu-bar";
 import { useTheme } from "@/hooks/use-theme";
+import { server } from "@/lib/hocuspocus";
+
+import { TiptapCollabProvider } from "@hocuspocus/provider";
+import Collaboration from "@tiptap/extension-collaboration";
+import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
+import * as Y from "yjs";
 
 interface EditorProps {
   throttledUpdate: Function;
