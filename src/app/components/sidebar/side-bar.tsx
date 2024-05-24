@@ -40,7 +40,7 @@ export const SideBar: React.FC = () => {
         {/* 10vh height */}
         <div className="p-4 pb-2 flex justify-between items-center h-[10vh] ">
           <Image
-            src={`/next-notes${theme === "dark" ? "-dark" : ""}.png`}
+            src={`/next-notes-dark.png`}
             alt="next-notes-logo"
             width="150"
             height="20"

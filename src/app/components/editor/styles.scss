@@ -80,7 +80,7 @@
 
 .editor {
   background-color: #fff;
-  border: 3px solid #0d0d0d;
+  border: 1px solid rgba(#0d0d0d, 0.1);
   border-radius: 0.75rem;
   color: #00ffd9;
   display: flex;
@@ -90,7 +90,7 @@
   &__header {
     align-items: center;
     background: #0d0d0d;
-    border-bottom: 3px solid #0d0d0d;
+    border-bottom: 1px solid rgba(#0d0d0d, 0.1);
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     display: flex;
@@ -108,7 +108,7 @@
 
   &__footer {
     align-items: center;
-    border-top: 3px solid #0d0d0d;
+    border-top: 1px solid rgba(#0d0d0d, 0.1);
     color: #0d0d0d;
     display: flex;
     flex: 0 0 auto;

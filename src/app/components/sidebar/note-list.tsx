@@ -40,7 +40,7 @@ export const NoteList: React.FC<Props> = ({}) => {
       }
       const notes: NoteType[] = await res.json();
       setNotes(notes);
-      // setSelectedNote(notes.length > 0 ? notes[0] : null);
+      setSelectedNote(notes.length > 0 ? notes[0] : null);
     }
     getNotes();
   }, [setNotes, setSelectedNote, userId]);

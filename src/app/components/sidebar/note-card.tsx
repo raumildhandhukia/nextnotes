@@ -17,7 +17,7 @@ import { ShareButton } from "./share-note-modal";
 import { DeleteButton } from "./delete-button";
 import { Notes_Context } from "@/context/Context";
 import { ShareNoteContext } from "@/context/ShareNotesContext";
-import { set } from "lodash";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 interface Props {
   isSelected: boolean;
   note: NoteType;
@@ -39,7 +39,7 @@ export const Note: React.FC<Props> = ({
     isExpanded ? "w-[20vw]" : "invisible w-0"
   }`;
   if (isSelected) {
-    className += " box-shadow selected-note";
+    className += " box-shadow selected-note bg-gray-100 dark:bg-gray-900 ";
   } else {
     className += " note";
   }
@@ -115,8 +115,21 @@ export const Note: React.FC<Props> = ({
         </CardFooter>
       )}
       {ownerInfo && (
-        <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
-          <p className="text-gray-500 italic">Shared By: {ownerInfo.name}</p>
+        <CardFooter className="flex justify-start items-end -my-4 gap-x-2 ">
+          <div>
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={ownerInfo.image || ""} />
+              <AvatarFallback className="text-sm">NA</AvatarFallback>
+            </Avatar>
+          </div>
+          <div className="">
+            <p className="text-gray-600 dark:text-indigo-200 text-xs font-semibold">
+              {ownerInfo.name}
+            </p>
+            <p className="text-gray-500 dark:text-indigo-100 text-xs font-semibold">
+              {ownerInfo.email}
+            </p>
+          </div>
         </CardFooter>
       )}
     </Card>
