@@ -6,7 +6,6 @@ import React, {
   useEffect,
   useState,
   useContext,
-  Suspense,
   useMemo,
 } from "react";
 import { Notes_Context } from "@/context/Context";
@@ -149,7 +148,7 @@ export const Editor: React.FC<EditorProps> = ({
           className="editor__content dark:bg-black"
           editor={editor}
         />
-        <div className="editor__footer">
+        {/* <div className="editor__footer">
           <div className={`editor__status editor__status--${status}`}>
             {status === "connected"
               ? `${editor?.storage.collaborationCursor.users.length} user${
@@ -162,7 +161,7 @@ export const Editor: React.FC<EditorProps> = ({
           <div className="editor__name">
             <button onClick={setName}>{currentUser.name}</button>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };
