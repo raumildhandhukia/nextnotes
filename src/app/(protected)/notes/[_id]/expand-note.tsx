@@ -13,7 +13,7 @@ export const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
     const splitContent = c.split("</h1>");
     let title = splitContent[0] + "</h1>";
     let content = splitContent[1];
-    debugger;
+
     if (title === "<h1></h1>") {
       title = "";
     }
@@ -82,7 +82,7 @@ export const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
 
   const throttledUpdate = throttle(async (c: string, _id: string) => {
     return await updateNote(c, _id);
-  }, 1000);
+  }, 2000);
 
   return (
     <>

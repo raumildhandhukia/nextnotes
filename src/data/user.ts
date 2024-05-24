@@ -1,5 +1,12 @@
 import { db } from "@/lib/db";
 
+interface UserData {
+  id: string;
+  name: string | null;
+  email: string | null;
+  image: string | null;
+}
+
 export const getUserByEmail = async (email: string | undefined) => {
   if (!email) {
     return null;
@@ -29,5 +36,44 @@ export const getUserById = async (id: string | undefined) => {
     return existingUser;
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const getUsersByName = async (query: string | undefined) => {
+  if (!query) {
+    return null;
+  }
+  try {
+    const users = await db.user.findMany({
+      where: {
+        OR: [
+          {
+            name: {
+              startsWith: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            email: {
+              startsWith: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+    });
+    const userData: UserData[] = users.map((user) => {
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+      };
+    });
+    console.log(userData);
+    return userData;
+  } catch (e) {
+    console.log(e);
+    return null;
   }
 };

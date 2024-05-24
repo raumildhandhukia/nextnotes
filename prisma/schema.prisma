@@ -47,20 +47,26 @@ model User {
   image         String?
   role          UserRoles @default(USER)
   accounts      Account[]
-  notes         Note[]
+  notes         Note[] @relation("UserNotes")
+
+  notesSharedWithUserIDs String[]   @db.ObjectId
+  notesSharedWithUser  Note[] @relation(name:"sharingNotes",fields: [notesSharedWithUserIDs], references: [id])
  
   @@map("users")
 }
 
 model Note {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  title     String?
-  content   String?
-  userId    String @db.ObjectId
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  title         String?
+  content       String?
+  userId        String    @db.ObjectId
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userIDs String[]   @db.ObjectId
+  users  User[] @relation(name:"sharingNotes", fields: [userIDs], references: [id])
+
+  user      User @relation("UserNotes",fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notes")
 }

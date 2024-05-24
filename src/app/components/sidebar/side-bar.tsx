@@ -2,6 +2,7 @@
 "use client";
 import React, { useState, useContext } from "react";
 import { NoteList } from "./note-list";
+import { SharedNoteList } from "./shared-notes-list";
 import { AddButton } from "./add-button";
 import { Profile } from "@/app/components/sidebar/profile-section";
 import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
@@ -39,7 +40,7 @@ export const SideBar: React.FC = () => {
         {/* 10vh height */}
         <div className="p-4 pb-2 flex justify-between items-center h-[10vh] ">
           <Image
-            src={`/next-notes${theme === "dark" ? "-dark" : ""}.png`}
+            src={`/next-notes-dark.png`}
             alt="next-notes-logo"
             width="150"
             height="20"
@@ -70,7 +71,7 @@ export const SideBar: React.FC = () => {
           <hr />
           <SideBarItem
             icon={<MdNotes size={20} />}
-            text="Your Notes"
+            text="my notes"
             isExpanded={isExpanded}
             active={yourNotesState}
             onClick={setYourNotesState}
@@ -81,13 +82,13 @@ export const SideBar: React.FC = () => {
           <hr />
           <SideBarItem
             icon={<GrDocumentNotes size={20} />}
-            text="Shared Notes"
+            text="notes shared with me"
             isExpanded={isExpanded}
             active={shareNotesState}
             onClick={setShareNotesState}
             otherItemState={setYourNotesState}
           >
-            <p>Feature Coming Soon</p>
+            <SharedNoteList />
           </SideBarItem>
           <hr />
         </ul>

@@ -1,5 +1,8 @@
 import { createContext, useState } from "react";
-import Note from "../app/types/Note";
+import Note, { UserData } from "../app/types/Note";
+interface NoteExt extends Note {
+  owner: UserData | null;
+}
 
 interface ContextType {
   reloadNotes: boolean;

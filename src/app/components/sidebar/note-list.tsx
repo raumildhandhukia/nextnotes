@@ -1,5 +1,6 @@
 "use client";
 import { Notes_Context } from "../../../context/Context";
+import { ShareNoteContext } from "@/context/ShareNotesContext";
 import React, { useEffect, useContext } from "react";
 import NoteType from "../../types/Note";
 import { Note } from "@/app/components/sidebar/note-card";
@@ -15,6 +16,7 @@ const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 export const NoteList: React.FC<Props> = ({}) => {
   const { notes, setNotes, selectedNote, setSelectedNote } =
     useContext(Notes_Context);
+  const { sharedNotesData } = useContext(ShareNoteContext);
   const user = useCurrentUser();
 
   const router = useRouter();
@@ -26,7 +28,7 @@ export const NoteList: React.FC<Props> = ({}) => {
 
   useEffect(() => {
     async function getNotes() {
-      const res = await fetch(`${DOMAIN}/api/notes/for/${userId}`, {
+      const res = await fetch(`/api/notes/for/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +36,7 @@ export const NoteList: React.FC<Props> = ({}) => {
         cache: "no-store",
       });
       if (!res.ok) {
-        throw new Error("Failed to fetch data");
+        console.log(" notes");
       }
       const notes: NoteType[] = await res.json();
       setNotes(notes);
@@ -46,15 +48,20 @@ export const NoteList: React.FC<Props> = ({}) => {
   return (
     <div className="flex max-h-[67vh] flex-col items-center flex-grow p-2 overflow-y-scroll ">
       <AnimatePresence initial={false}>
-        {notes.map((note) => (
-          <AnimatedListItem key={note._id}>
-            <Note
-              key={note._id}
-              isSelected={note._id === selectedNote?._id}
-              note={note}
-            />
-          </AnimatedListItem>
-        ))}
+        {notes.map((note) => {
+          // console.log(sharedNotesData[note._id]);
+          return (
+            <AnimatedListItem key={note._id}>
+              <Note
+                key={note._id}
+                isSelected={note._id === selectedNote?._id}
+                note={note}
+                userOwns
+                sharedNoteData={sharedNotesData[note._id]}
+              />
+            </AnimatedListItem>
+          );
+        })}
       </AnimatePresence>
     </div>
   );

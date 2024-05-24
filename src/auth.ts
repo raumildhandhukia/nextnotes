@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { getUserById } from "@/data/user";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { UserRoles } from "@prisma/client";
+import { getAvailableNotesForUser } from "@/data/available-notes";
 
 declare module "@auth/core" {
   interface Session {

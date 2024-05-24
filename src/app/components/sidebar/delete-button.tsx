@@ -4,25 +4,25 @@ import { Button } from "../../../components/ui/button";
 import React, { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Notes_Context } from "@/context/Context";
-import { deleteNote } from "@/actions/notes/delete";
+import { deleteNote } from "@/actions/notes/delete-note";
 import { MdDelete } from "react-icons/md";
 
 interface Props {
-  _id: string;
+  noteId: string;
 }
 
-export const DeleteButton: React.FC<Props> = ({ _id }) => {
+export const DeleteButton: React.FC<Props> = ({ noteId }) => {
   const router = useRouter();
   const { notes, setNotes, selectedNote } = useContext(Notes_Context);
 
   const handleDeleteNote = async () => {
-    const res = await deleteNote(_id);
+    const res = await deleteNote(noteId);
     if (res.error) {
       console.error("Failed to add note");
       return;
     }
-    setNotes(notes.filter((n) => n._id !== _id));
-    if (selectedNote?._id === _id) {
+    setNotes(notes.filter((n) => n._id !== noteId));
+    if (selectedNote?._id === noteId) {
       router.push("/notes");
     }
   };
