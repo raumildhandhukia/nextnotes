@@ -13,6 +13,11 @@ const colors = [
   "#70CFF8",
   "#94FADB",
   "#B9F18D",
+  "#F8D5A3",
+  "#F9B9F2",
+  "#C3ABF4",
+  "#F4A3C3",
+  "#A3F4F1",
 ];
 const getRandomElement = (list: string[]) =>
   list[Math.floor(Math.random() * list.length)];
@@ -34,7 +39,7 @@ const EditorPage = ({ throttledUpdate }: EditorProps) => {
     <>
       {selectedNote && (
         <div>
-          <div className="flex my-1 mx-2 h-[99vh]">
+          <div className="flex my-1 mx-2 h-[calc(99dvh)]">
             <Editor
               throttledUpdate={throttledUpdate}
               getInitialUser={getInitialUser}

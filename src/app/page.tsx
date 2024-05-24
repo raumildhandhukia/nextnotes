@@ -12,22 +12,22 @@ export default function SignInPage() {
   // const router = useRouter();
   // router.push("/auth/login");
   return (
-    <main className="flex h-screen flex-col items-center justify-center bg-gradient-to-tr from-zinc-800 via-zinc-200 to-zinc-600 dark:from-gray-900 dark:via-gray-600 dark:to-gray-900">
+    <main className="h-screen flex flex-col justify-center items-center dark:bg-black">
       <div className="space-y-6">
         <h1
           className={cn(
-            "text-6xl font-semibold text-gray-800 drop-shadow-md dark:text-indigo-200",
+            "text-5xl font-semibold dark:text-indigo-300 ",
             font.className
           )}
         >
           🗒️ next-notes
         </h1>
-        <p>a minimal collaberative web notes application</p>
-        <div className="flex justify-center items-center gap-5">
+        <p className="font-semibold dark:text-indigo-300 md:text-2xl">
+          a minimal collaberative web notes application
+        </p>
+        <div className="flex flex-row justify-center items-center gap-5">
           <LoginButton>
-            <Button variant="default" size="lg">
-              Log In
-            </Button>
+            <Button size="lg">Log In</Button>
           </LoginButton>
           <RegisterButton>
             <Button

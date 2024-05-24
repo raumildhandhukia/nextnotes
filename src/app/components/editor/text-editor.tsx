@@ -138,8 +138,8 @@ export const Editor: React.FC<EditorProps> = ({
   const renderEditor = () => {
     return (
       <div
-        className={`editor transition-all w-[72.5vw] ${
-          isExpanded ? "mx-3" : "mx-[11vw]"
+        className={`editor transition-all md:w-[72.5vw] ${
+          isExpanded ? "md:mx-3" : "md:mx-[11vw]"
         }`}
         key={selectedNote?._id}
       >
