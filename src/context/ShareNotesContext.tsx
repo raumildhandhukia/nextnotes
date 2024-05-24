@@ -1,28 +1,30 @@
+// import { Note } from "@prisma/client";
 import { createContext, useState } from "react";
+import Note, { UserData } from "@/app/types/Note";
 
-interface User {
-  id: string;
-  name: string | null;
-  email: string | null;
-  image: string | null;
+interface NoteExt extends Note {
+  owner: UserData | null;
 }
+type SharedNotesData = {
+  [noteId: string]: UserData[];
+};
 
 interface ShareNoteContextType {
-  sharedWith: User[];
-  setSharedWith: React.Dispatch<React.SetStateAction<User[]>>;
-  searchResults: User[];
-  setSearchResults: React.Dispatch<React.SetStateAction<User[]>>;
+  sharedNotes: NoteExt[];
+  setSharedNotes: React.Dispatch<React.SetStateAction<NoteExt[]>>;
   noteId: string | undefined;
   setNoteId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  sharedNotesData: SharedNotesData;
+  setSharedNotesData: React.Dispatch<React.SetStateAction<SharedNotesData>>;
 }
 
 const defaultContext: ShareNoteContextType = {
-  sharedWith: [],
-  setSharedWith: () => {},
-  searchResults: [],
-  setSearchResults: () => {},
+  setSharedNotes: () => {},
+  sharedNotes: [],
   noteId: "",
   setNoteId: () => {},
+  sharedNotesData: {},
+  setSharedNotesData: () => {},
 };
 
 export const ShareNoteContext = createContext(defaultContext);
@@ -32,19 +34,19 @@ interface SharedNoteProviderProps {
 }
 
 const ShareNote: React.FC<SharedNoteProviderProps> = ({ children }) => {
-  const [sharedWith, setSharedWith] = useState<User[]>([]);
-  const [searchResults, setSearchResults] = useState<User[]>([]);
+  const [sharedNotes, setSharedNotes] = useState<NoteExt[]>([]);
   const [noteId, setNoteId] = useState<string | undefined>("");
+  const [sharedNotesData, setSharedNotesData] = useState<SharedNotesData>({});
 
   return (
     <ShareNoteContext.Provider
       value={{
-        sharedWith,
-        setSharedWith,
-        searchResults,
-        setSearchResults,
         noteId,
         setNoteId,
+        sharedNotesData,
+        setSharedNotesData,
+        sharedNotes,
+        setSharedNotes,
       }}
     >
       {children}

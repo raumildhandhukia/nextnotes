@@ -16,6 +16,7 @@ import {
 import { useEffect, useContext } from "react";
 import { ShareNoteContext } from "@/context/ShareNotesContext";
 import { getUsersSharedWithNote } from "@/actions/notes/share-note";
+import { set } from "lodash";
 
 interface UserData {
   id: string;
@@ -23,13 +24,11 @@ interface UserData {
   email: string | null;
   image: string | null;
 }
-interface Props {
-  noteId: string;
-}
+interface Props {}
 
-export const ShareButton: React.FC<Props> = ({ noteId }) => {
-  const { setNoteId, setSharedWith } = useContext(ShareNoteContext);
-  setNoteId(noteId);
+export const ShareButton: React.FC<Props> = ({}) => {
+  const { noteId, sharedNotesData, setSharedNotesData } =
+    useContext(ShareNoteContext);
 
   useEffect(() => {
     const getSharedWith = async () => {
@@ -38,10 +37,15 @@ export const ShareButton: React.FC<Props> = ({ noteId }) => {
         return;
       }
       const users = res as UserData[];
-      setSharedWith(users);
+      setSharedNotesData((prev) => {
+        return {
+          ...prev,
+          [noteId!]: users,
+        };
+      });
     };
     getSharedWith();
-  }, [noteId, setSharedWith]);
+  }, [noteId, setSharedNotesData]);
 
   return (
     <Dialog>
@@ -57,7 +61,7 @@ export const ShareButton: React.FC<Props> = ({ noteId }) => {
             Select the user of nextnotes you want to share this note with.
           </DialogDescription>
         </DialogHeader>
-        <SearchUsers />
+        <SearchUsers sharedWith={sharedNotesData[noteId!]} />
         <DialogFooter className="sm:justify-start">
           <DialogClose asChild>
             <Button type="button" variant="secondary">

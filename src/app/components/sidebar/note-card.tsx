@@ -1,6 +1,6 @@
 "use client";
 import React, { useContext } from "react";
-import NoteType from "../../types/Note";
+import NoteType, { UserData } from "../../types/Note";
 import { useRouter } from "next/navigation";
 import { deleteNote } from "@/actions/notes/delete-note";
 
@@ -16,16 +16,14 @@ import {
 import { ShareButton } from "./share-note-modal";
 import { DeleteButton } from "./delete-button";
 import { Notes_Context } from "@/context/Context";
-
+import { ShareNoteContext } from "@/context/ShareNotesContext";
+import { set } from "lodash";
 interface Props {
   isSelected: boolean;
   note: NoteType;
   userOwns?: boolean;
-  ownerInfo?: {
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  };
+  ownerInfo?: UserData | null;
+  sharedNoteData?: UserData[];
 }
 
 export const Note: React.FC<Props> = ({
@@ -36,6 +34,7 @@ export const Note: React.FC<Props> = ({
 }) => {
   const { notes, setNotes, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
+  const { setNoteId } = useContext(ShareNoteContext);
   let className = `note-base overflow-hidden transition-all ${
     isExpanded ? "w-[20vw]" : "invisible w-0"
   }`;
@@ -105,7 +104,13 @@ export const Note: React.FC<Props> = ({
       </CardHeader>
       {userOwns && (
         <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
-          <ShareButton noteId={note._id} />
+          <div
+            onClick={() => {
+              setNoteId(note._id);
+            }}
+          >
+            <ShareButton />
+          </div>
           <DeleteButton noteId={note._id} />
         </CardFooter>
       )}

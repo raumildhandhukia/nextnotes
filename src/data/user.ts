@@ -50,11 +50,13 @@ export const getUsersByName = async (query: string | undefined) => {
           {
             name: {
               startsWith: query,
+              mode: "insensitive",
             },
           },
           {
             email: {
               startsWith: query,
+              mode: "insensitive",
             },
           },
         ],

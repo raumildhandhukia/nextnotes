@@ -2,23 +2,31 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import React, { useContext } from "react";
 import { ShareNoteContext } from "@/context/ShareNotesContext";
 import { shareNote } from "@/actions/notes/share-note";
+import { UserData } from "@/app/types/Note";
 
 interface UserInfoProps {
-  user: {
-    id: string;
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  };
+  user: UserData;
+  setSearchResults: React.Dispatch<React.SetStateAction<UserData[]>>;
 }
 
-export const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
-  const { noteId, setSharedWith, setSearchResults } =
-    useContext(ShareNoteContext);
+export const UserInfo: React.FC<UserInfoProps> = ({
+  user,
+  setSearchResults,
+}) => {
+  const { noteId, setSharedNotesData } = useContext(ShareNoteContext);
 
   const handleShareNote = () => {
-    shareNote(noteId, user.id);
-    setSharedWith((prev) => [...prev, user]);
+    shareNote(noteId, user.id!);
+    setSharedNotesData((prev) => {
+      let prevNoteUsers = prev[noteId!];
+      if (!prevNoteUsers) {
+        prevNoteUsers = [];
+      }
+      return {
+        ...prev,
+        [noteId!]: [...prevNoteUsers, user],
+      };
+    });
     setSearchResults((prev) => prev.filter((u) => u.id !== user.id));
   };
   return (

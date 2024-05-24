@@ -1,7 +1,8 @@
 "use client";
-import { Notes_Context } from "../../../context/Context";
+import { Notes_Context } from "@/context/Context";
+import { ShareNoteContext } from "@/context/ShareNotesContext";
 import React, { useEffect, useContext } from "react";
-import NoteType from "../../types/Note";
+import NoteType, { UserData } from "@/app/types/Note";
 import { Note } from "@/app/components/sidebar/note-card";
 import { AnimatePresence } from "framer-motion";
 import { AnimatedListItem } from "./animated-list-item";
@@ -9,31 +10,26 @@ import { getNotesSharedWithUser } from "@/actions/notes/share-note";
 import { useCurrentUser } from "@/hooks/use-current-user";
 
 interface NoteExt extends NoteType {
-  owner: {
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  } | null;
+  owner: UserData | null;
 }
 
-interface Props {}
-
-export const SharedNoteList: React.FC<Props> = ({}) => {
-  const { sharedNotes, setSharedNotes, selectedNote } =
-    useContext(Notes_Context);
+export const SharedNoteList: React.FC = () => {
+  const { selectedNote } = useContext(Notes_Context);
+  const { sharedNotes, setSharedNotes } = useContext(ShareNoteContext);
 
   const user = useCurrentUser();
   const userId = user?.id;
 
   useEffect(() => {
-    async function getNotes() {
+    const getNotes = async () => {
+      debugger;
       const res = await getNotesSharedWithUser(userId);
       if (!res) {
         return;
       }
       const notes = res as NoteExt[];
       setSharedNotes(notes);
-    }
+    };
     getNotes();
   }, [setSharedNotes, userId]);
 
@@ -42,10 +38,10 @@ export const SharedNoteList: React.FC<Props> = ({}) => {
       <AnimatePresence initial={false}>
         {sharedNotes.map(({ owner, ...note }: NoteExt) => {
           return (
-            <AnimatedListItem key={note._id}>
+            <AnimatedListItem key={note.id}>
               <Note
-                key={note._id}
-                isSelected={note._id === selectedNote?._id}
+                key={note.id}
+                isSelected={note.id === selectedNote?._id}
                 note={note}
                 ownerInfo={owner}
               />

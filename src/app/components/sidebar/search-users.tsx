@@ -5,20 +5,19 @@ import { MdShare } from "react-icons/md";
 import { getSearchResult } from "@/actions/notes/get-users";
 import { UserInfo } from "@/app/components/sidebar/user-info";
 import { SharedWithUserTags } from "@/app/components/sidebar/shared-with-user-tags";
-import { ShareNoteContext } from "@/context/ShareNotesContext";
+import { UserData } from "@/app/types/Note";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-interface UserData {
-  id: string;
-  name: string | null;
-  email: string | null;
-  image: string | null;
+interface SearchUsersProps {
+  sharedWith: UserData[];
 }
 
-interface SearchUsersProps {}
-
-export const SearchUsers: React.FC<SearchUsersProps> = ({}) => {
-  const { searchResults, setSearchResults, sharedWith } =
-    useContext(ShareNoteContext);
+export const SearchUsers: React.FC<SearchUsersProps> = ({ sharedWith }) => {
+  const currentUser = useCurrentUser();
+  const [searchResults, setSearchResults] = React.useState<UserData[]>([]);
+  if (!sharedWith) {
+    sharedWith = [];
+  }
   const handleSearch = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value, "e.target.value");
     const res = await getSearchResult(e.target.value);
@@ -27,7 +26,9 @@ export const SearchUsers: React.FC<SearchUsersProps> = ({}) => {
     }
     const users = res as UserData[];
     const filteredUsers = users.filter((user) => {
-      return !sharedWith.some((u) => u.id === user.id);
+      return (
+        !sharedWith.some((u) => u.id === user.id) && user.id !== currentUser?.id
+      );
     });
     setSearchResults(filteredUsers);
   };
@@ -47,7 +48,11 @@ export const SearchUsers: React.FC<SearchUsersProps> = ({}) => {
       </div>
       <div className="max-h-[25vh] overflow-y-scroll my-3">
         {searchResults.map((user) => (
-          <UserInfo user={user} key={user.id} />
+          <UserInfo
+            user={user}
+            key={user.id}
+            setSearchResults={setSearchResults}
+          />
         ))}
       </div>
     </>

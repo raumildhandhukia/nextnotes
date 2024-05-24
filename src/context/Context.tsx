@@ -1,11 +1,7 @@
 import { createContext, useState } from "react";
-import Note from "../app/types/Note";
+import Note, { UserData } from "../app/types/Note";
 interface NoteExt extends Note {
-  owner: {
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  } | null;
+  owner: UserData | null;
 }
 
 interface ContextType {
@@ -23,8 +19,6 @@ interface ContextType {
   setUserInfo: React.Dispatch<React.SetStateAction<ContextType["userInfo"]>>;
   isExpanded: boolean;
   setIsExpanded: React.Dispatch<React.SetStateAction<boolean>>;
-  sharedNotes: NoteExt[];
-  setSharedNotes: React.Dispatch<React.SetStateAction<NoteExt[]>>;
 }
 const defaultContext: ContextType = {
   reloadNotes: false,
@@ -37,8 +31,6 @@ const defaultContext: ContextType = {
   setUserInfo: () => {},
   isExpanded: true,
   setIsExpanded: () => {},
-  sharedNotes: [],
-  setSharedNotes: () => {},
 };
 
 export const Notes_Context = createContext(defaultContext);
@@ -53,7 +45,6 @@ const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [userInfo, setUserInfo] = useState<ContextType["userInfo"]>({});
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
-  const [sharedNotes, setSharedNotes] = useState<NoteExt[]>([]);
 
   return (
     <Notes_Context.Provider
@@ -68,8 +59,6 @@ const NotesProvider: React.FC<NotesProviderProps> = ({ children }) => {
         setUserInfo,
         setIsExpanded,
         isExpanded,
-        sharedNotes,
-        setSharedNotes,
       }}
     >
       {children}

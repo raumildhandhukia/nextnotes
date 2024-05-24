@@ -1,14 +1,10 @@
 "use server";
 
 import { db } from "@/lib/db";
-import NoteType from "@/app/types/Note";
+import NoteType, { UserData } from "@/app/types/Note";
 
 interface NoteExt extends NoteType {
-  owner: {
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  } | null;
+  owner: UserData | null;
 }
 
 export const getNotesSharedWithUser = async (userId: string | undefined) => {
@@ -37,6 +33,7 @@ export const getNotesSharedWithUser = async (userId: string | undefined) => {
             id: ownerId,
           },
           select: {
+            id: true,
             name: true,
             email: true,
             image: true,
@@ -84,7 +81,7 @@ export const getUsersSharedWithNote = async (noteId: string | undefined) => {
     });
     return users;
   } catch (error) {
-    return { error: "Something went wrong!" };
+    return null;
   }
 };
 

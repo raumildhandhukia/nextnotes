@@ -19,7 +19,6 @@ import { TiptapCollabProvider } from "@hocuspocus/provider";
 import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
-
 interface EditorProps {
   throttledUpdate: Function;
 }
@@ -31,6 +30,20 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   const { notes, setNotes, selectedNote, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
   const { theme } = useTheme();
+  const doc = new Y.Doc();
+
+  useEffect(() => {
+    const provider = new TiptapCollabProvider({
+      name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
+      appId: "7j9y6m10", // replace with YOUR_APP_ID
+      token: "notoken", // replace with your JWT
+      document: doc,
+    });
+
+    return () => {
+      provider.destroy();
+    };
+  }, [selectedNote?._id]);
 
   const getContent = () => {
     return "" + selectedNote?.title + selectedNote?.content;
@@ -52,8 +65,11 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     onUpdate: (e) => {
       handleUpdate(e.editor.getHTML());
     },
-    content: getContent(),
+    // content: getContent(),
     extensions: [
+      Collaboration.configure({
+        document: doc,
+      }),
       CustomDocument,
       StarterKit.configure({
         document: false,

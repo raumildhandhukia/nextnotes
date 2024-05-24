@@ -58,6 +58,11 @@
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^9.0.1",
     "vaul": "^0.9.1",
+    "ws": "^8.17.0",
+    "y-mongodb-provider": "^0.1.10",
+    "y-webrtc": "^10.3.0",
+    "y-websocket": "^2.0.3",
+    "yjs": "^13.6.15",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -68,6 +73,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/uuid": "^9.0.8",
+    "@types/ws": "^8.5.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",

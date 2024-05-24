@@ -2,22 +2,26 @@ import React, { useContext } from "react";
 import { MdClose } from "react-icons/md";
 import { unshareNote } from "@/actions/notes/share-note";
 import { ShareNoteContext } from "@/context/ShareNotesContext";
+import { UserData } from "@/app/types/Note";
 
 interface Props {
-  user: {
-    id: string;
-    name: string | null;
-    email: string | null;
-    image: string | null;
-  };
+  user: UserData;
 }
 
 export const SharedWithUserTags: React.FC<Props> = ({ user }) => {
-  const { noteId, setSharedWith } = useContext(ShareNoteContext);
-
+  const { noteId, setSharedNotesData } = useContext(ShareNoteContext);
   const handleUnShareNote = () => {
-    unshareNote(noteId, user.id);
-    setSharedWith((prev) => prev.filter((u) => u.id !== user.id));
+    unshareNote(noteId, user.id!);
+    setSharedNotesData((prev) => {
+      let prevNotesUsers = prev[noteId!];
+      if (!prevNotesUsers) {
+        prevNotesUsers = [];
+      }
+      return {
+        ...prev,
+        [noteId!]: prevNotesUsers.filter((u) => u.id !== user.id),
+      };
+    });
   };
   return (
     <div className="flex flex-wrap gap-2">

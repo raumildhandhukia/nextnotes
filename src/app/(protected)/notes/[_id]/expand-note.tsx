@@ -13,7 +13,7 @@ export const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
     const splitContent = c.split("</h1>");
     let title = splitContent[0] + "</h1>";
     let content = splitContent[1];
-    debugger;
+
     if (title === "<h1></h1>") {
       title = "";
     }
