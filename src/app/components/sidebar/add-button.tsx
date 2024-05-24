@@ -22,7 +22,7 @@ export const AddButton: React.FC<Props> = ({ className }) => {
   const handleAddNote = async () => {
     if (!enableAddNote) return;
     enableAddNote = false;
-    const res = await fetch(`${DOMAIN}/api/notes`, {
+    const res = await fetch(`/api/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

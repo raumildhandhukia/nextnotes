@@ -28,7 +28,7 @@ export const NoteList: React.FC<Props> = ({}) => {
 
   useEffect(() => {
     async function getNotes() {
-      const res = await fetch(`${DOMAIN}/api/notes/for/${userId}`, {
+      const res = await fetch(`/api/notes/for/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export const NoteList: React.FC<Props> = ({}) => {
         cache: "no-store",
       });
       if (!res.ok) {
-        console.log("Failed to fetch notes");
+        console.log(" notes");
       }
       const notes: NoteType[] = await res.json();
       setNotes(notes);
