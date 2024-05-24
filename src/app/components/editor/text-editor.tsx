@@ -1,49 +1,57 @@
 "use client";
 import "./styles.scss";
 import "./dark.scss";
-import CharacterCount from "@tiptap/extension-character-count";
-import React, { useCallback, useEffect, useState, useContext } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useState,
+  useContext,
+  Suspense,
+  useMemo,
+} from "react";
+import { Notes_Context } from "@/context/Context";
+import { MenuBar } from "./menu-bar";
 import Document from "@tiptap/extension-document";
 import Placeholder from "@tiptap/extension-placeholder";
 import Highlight from "@tiptap/extension-highlight";
 import TaskItem from "@tiptap/extension-task-item";
 import TaskList from "@tiptap/extension-task-list";
+import CharacterCount from "@tiptap/extension-character-count";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { Notes_Context } from "@/context/Context";
-import { MenuBar } from "./menu-bar";
-import { useTheme } from "@/hooks/use-theme";
-
-import { HocuspocusProvider, TiptapCollabProvider } from "@hocuspocus/provider";
+import { TiptapCollabProvider } from "@hocuspocus/provider";
 import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
+import { SyncLoader } from "react-spinners";
+
 interface EditorProps {
   throttledUpdate: Function;
+  getInitialUser: Function;
 }
 
 const CustomDocument = Document.extend({
   content: "heading block*",
 });
 
-export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
+export const Editor: React.FC<EditorProps> = ({
+  throttledUpdate,
+  getInitialUser,
+}) => {
+  const [status, setStatus] = useState("connecting");
+  const [currentUser, setCurrentUser] = useState(getInitialUser());
   const { notes, setNotes, selectedNote, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
-  const { theme } = useTheme();
-  const doc = new Y.Doc();
-
-  useEffect(() => {
+  const [doc, provider] = useMemo(() => {
+    const doc = new Y.Doc();
     const provider = new TiptapCollabProvider({
       name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
-      appId: "any", // replace with YOUR_APP_ID
+      appId: "7j9y6m10", // replace with YOUR_APP_ID
       token: "notoken", // replace with your JWT
       document: doc,
     });
-
-    return () => {
-      provider.destroy();
-    };
-  }, [selectedNote?._id!]);
+    return [doc, provider];
+  }, [selectedNote?._id]);
 
   const getContent = () => {
     return "" + selectedNote?.title + selectedNote?.content;
@@ -74,6 +82,9 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
       StarterKit.configure({
         document: false,
       }),
+      CollaborationCursor.configure({
+        provider: provider,
+      }),
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === "heading") {
@@ -95,19 +106,68 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
       },
     },
   });
+  useEffect(() => {
+    // Update status changes
+    provider.on("status", (event: any) => {
+      setStatus(event.status);
+    });
+  }, []);
+
+  // Save current user to localStorage and emit to editor
+  useEffect(() => {
+    if (editor && currentUser) {
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      editor.chain().focus().updateUser(currentUser).run();
+    }
+  }, [editor, currentUser]);
+  const setName = useCallback(() => {
+    const name = (window.prompt("Name") || "").trim().substring(0, 32);
+
+    if (name) {
+      return setCurrentUser({ ...currentUser, name });
+    }
+  }, [currentUser]);
+
+  const renderLoader = () => {
+    return (
+      <div className="flex justify-center items-center w-[72.5vw]">
+        <SyncLoader color={"#958DF1"} />
+      </div>
+    );
+  };
+
+  const renderEditor = () => {
+    return (
+      <div
+        className={`editor transition-all w-[72.5vw] ${
+          isExpanded ? "mx-3" : "mx-[11vw]"
+        }`}
+        key={selectedNote?._id}
+      >
+        {editor && <MenuBar editor={editor} />}
+        <EditorContent
+          className="editor__content dark:bg-black"
+          editor={editor}
+        />
+        <div className="editor__footer">
+          <div className={`editor__status editor__status--${status}`}>
+            {status === "connected"
+              ? `${editor?.storage.collaborationCursor.users.length} user${
+                  editor?.storage.collaborationCursor.users.length === 1
+                    ? ""
+                    : "s"
+                } online in ${selectedNote?.id || "Untitled"}`
+              : "offline"}
+          </div>
+          <div className="editor__name">
+            <button onClick={setName}>{currentUser.name}</button>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <div
-      className={`editor transition-all w-[72.5vw] ${
-        isExpanded ? "mx-3" : "mx-[11vw]"
-      }`}
-      key={selectedNote?._id}
-    >
-      {editor && <MenuBar editor={editor} />}
-      <EditorContent
-        className="editor__content dark:bg-black"
-        editor={editor}
-      />
-    </div>
+    <>{status === "connected" && editor ? renderEditor() : renderLoader()}</>
   );
 };

@@ -82,7 +82,7 @@ export const ExpandNote: React.FC<ExpandNoteProps> = ({}) => {
 
   const throttledUpdate = throttle(async (c: string, _id: string) => {
     return await updateNote(c, _id);
-  }, 1000);
+  }, 2000);
 
   return (
     <>
