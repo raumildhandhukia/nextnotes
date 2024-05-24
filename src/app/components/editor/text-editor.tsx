@@ -13,9 +13,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { Notes_Context } from "@/context/Context";
 import { MenuBar } from "./menu-bar";
 import { useTheme } from "@/hooks/use-theme";
-import { server } from "@/lib/hocuspocus";
 
-import { TiptapCollabProvider } from "@hocuspocus/provider";
+import { HocuspocusProvider, TiptapCollabProvider } from "@hocuspocus/provider";
 import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
 import * as Y from "yjs";
@@ -33,6 +32,11 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   const doc = new Y.Doc();
 
   useEffect(() => {
+    // const provider = new HocuspocusProvider({
+    //   url: "ws://127.0.0.1:1234",
+    //   name: "example-document",
+    //   document: doc,
+    // });
     const provider = new TiptapCollabProvider({
       name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
       appId: "7j9y6m10", // replace with YOUR_APP_ID
@@ -43,7 +47,7 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     return () => {
       provider.destroy();
     };
-  }, [selectedNote?._id]);
+  }, [selectedNote?._id!]);
 
   const getContent = () => {
     return "" + selectedNote?.title + selectedNote?.content;
@@ -62,9 +66,9 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   };
 
   const editor = useEditor({
-    onUpdate: (e) => {
-      handleUpdate(e.editor.getHTML());
-    },
+    // onUpdate: (e) => {
+    //   handleUpdate(e.editor.getHTML());
+    // },
     // content: getContent(),
     extensions: [
       Collaboration.configure({

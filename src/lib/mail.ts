@@ -13,17 +13,16 @@ const transporter = nodeMailer.createTransport({
 });
 export const sendVerificationEmail = async (email: string, token: string) => {
   const confirmLink = `${DOMAIN}/auth/new-verification?token=${token}`;
-  const mailOptions = {
-    from: {
-      name: "Next Notes",
-      address: process.env.SENDER_GMAIL,
-    },
-    to: [email],
-    subject: "Verify Your Email",
-    html: `<p><a href="${confirmLink}">Click here to verify your email</a> for Next Notes account.</p>`,
-  };
   try {
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail({
+      from: {
+        name: "Next Notes",
+        address: process.env.SENDER_GMAIL || "",
+      },
+      to: [email],
+      subject: "Verify Your Email",
+      html: `<p><a href="${confirmLink}">Click here to verify your email</a> for Next Notes account.</p>`,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -31,17 +30,16 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
   const confirmLink = `${DOMAIN}/auth/new-password?token=${token}`;
-  const mailOptions = {
-    from: {
-      name: "Next Notes",
-      address: process.env.SENDER_GMAIL,
-    },
-    to: [email],
-    subject: "Reset Your Password",
-    html: `<p><a href="${confirmLink}">Click here to reset your password</a> for Next Notes account.</p>`,
-  };
   try {
-    await transporter.sendMail(mailOptions);
+    await transporter.sendMail({
+      from: {
+        name: "Next Notes",
+        address: process.env.SENDER_GMAIL || "",
+      },
+      to: [email],
+      subject: "Reset Your Password",
+      html: `<p><a href="${confirmLink}">Click here to reset your password</a> for Next Notes account.</p>`,
+    });
   } catch (err) {
     console.log(err);
   }
