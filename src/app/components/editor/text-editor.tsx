@@ -33,14 +33,9 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
   const doc = new Y.Doc();
 
   useEffect(() => {
-    // const provider = new HocuspocusProvider({
-    //   url: "ws://127.0.0.1:1234",
-    //   name: "example-document",
-    //   document: doc,
-    // });
     const provider = new TiptapCollabProvider({
       name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
-      appId: "7j9y6m10", // replace with YOUR_APP_ID
+      appId: "any", // replace with YOUR_APP_ID
       token: "notoken", // replace with your JWT
       document: doc,
     });
@@ -70,7 +65,7 @@ export const Editor: React.FC<EditorProps> = ({ throttledUpdate }) => {
     onUpdate: (e) => {
       handleUpdate(e.editor.getHTML());
     },
-    content: getContent(),
+    // content: getContent(),
     extensions: [
       Collaboration.configure({
         document: doc,
