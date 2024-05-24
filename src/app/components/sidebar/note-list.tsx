@@ -36,7 +36,7 @@ export const NoteList: React.FC<Props> = ({}) => {
         cache: "no-store",
       });
       if (!res.ok) {
-        throw new Error("Failed to fetch data");
+        console.log("Failed to fetch notes");
       }
       const notes: NoteType[] = await res.json();
       setNotes(notes);

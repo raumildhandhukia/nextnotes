@@ -71,7 +71,7 @@ export const SideBar: React.FC = () => {
           <hr />
           <SideBarItem
             icon={<MdNotes size={20} />}
-            text="Your Notes"
+            text="my notes"
             isExpanded={isExpanded}
             active={yourNotesState}
             onClick={setYourNotesState}
@@ -82,7 +82,7 @@ export const SideBar: React.FC = () => {
           <hr />
           <SideBarItem
             icon={<GrDocumentNotes size={20} />}
-            text="Shared Notes"
+            text="notes shared with me"
             isExpanded={isExpanded}
             active={shareNotesState}
             onClick={setShareNotesState}
