@@ -1,6 +1,6 @@
 // Desc: This file contains the SideBar component which is responsible for rendering the sidebar of the application.
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NoteList } from "./note-list";
 import { SharedNoteList } from "./shared-notes-list";
 import { AddButton } from "./add-button";
@@ -22,15 +22,18 @@ export const SideBar: React.FC = () => {
   const { isExpanded, setIsExpanded } = useContext(Notes_Context);
   const { theme } = useTheme();
 
-  const handleExpansion = () => {
+  useEffect(() => {
     if (isExpanded) {
+      setYourNotesState(prevStates[0]);
+      setShareNotesState(prevStates[1]);
+    } else {
       setPrevStates([yourNotesState, shareNotesState]);
       setYourNotesState(false);
       setShareNotesState(false);
-    } else {
-      setYourNotesState(prevStates[0]);
-      setShareNotesState(prevStates[1]);
     }
+  }, [isExpanded]);
+
+  const handleExpansion = () => {
     setIsExpanded((curr) => !curr);
   };
   const renderSidebar = () => {

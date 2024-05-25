@@ -12,7 +12,7 @@ export default function SignInPage() {
   // const router = useRouter();
   // router.push("/auth/login");
   return (
-    <main className="h-screen flex flex-col justify-center items-center dark:bg-black">
+    <main className="h-[calc(100dvh)] flex flex-col justify-center items-center dark:bg-black">
       <div className="space-y-6">
         <h1
           className={cn(

@@ -28,12 +28,10 @@ const EditorPage = ({ throttledUpdate }: EditorProps) => {
   const { selectedNote } = useContext(Notes_Context);
   const user = useCurrentUser();
   const getInitialUser = () => {
-    return (
-      JSON.parse("" + localStorage.getItem("currentUser")) || {
-        name: user?.name || "Anonymous",
-        color: getRandomColor(),
-      }
-    );
+    return {
+      name: user?.name || "Anonymous",
+      color: getRandomColor(),
+    };
   };
   return (
     <>

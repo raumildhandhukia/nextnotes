@@ -116,17 +116,9 @@ export const Editor: React.FC<EditorProps> = ({
   // Save current user to localStorage and emit to editor
   useEffect(() => {
     if (editor && currentUser) {
-      localStorage.setItem("currentUser", JSON.stringify(currentUser));
       editor.chain().focus().updateUser(currentUser).run();
     }
   }, [editor, currentUser]);
-  const setName = useCallback(() => {
-    const name = (window.prompt("Name") || "").trim().substring(0, 32);
-
-    if (name) {
-      return setCurrentUser({ ...currentUser, name });
-    }
-  }, [currentUser]);
 
   const renderLoader = () => {
     return (

@@ -6,7 +6,7 @@ interface AuthLayoutProps {
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
-    <div className="h-screen flex items-center justify-center bg-gradient-to-tr from-zinc-800 via-zinc-200 to-zinc-600">
+    <div className="h-[calc(100dvh)] flex items-center justify-center bg-gradient-to-tr from-zinc-800 via-zinc-200 to-zinc-600">
       {children}
     </div>
   );

@@ -32,7 +32,7 @@ export const Note: React.FC<Props> = ({
   userOwns,
   ownerInfo,
 }) => {
-  const { notes, setNotes, setSelectedNote, isExpanded } =
+  const { setIsExpanded, notes, setNotes, setSelectedNote, isExpanded } =
     useContext(Notes_Context);
   const { setNoteId } = useContext(ShareNoteContext);
   let className = `note-base overflow-hidden transition-all ${
@@ -71,6 +71,7 @@ export const Note: React.FC<Props> = ({
       }
       return note;
     });
+    setIsExpanded(false);
     if (deleteNoteId.length > 0) {
       setNotes(notes.filter((n) => n._id !== deleteNoteId));
       await deleteNote(deleteNoteId);
