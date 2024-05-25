@@ -36,7 +36,7 @@ export const Note: React.FC<Props> = ({
     useContext(Notes_Context);
   const { setNoteId } = useContext(ShareNoteContext);
   let className = `note-base overflow-hidden transition-all ${
-    isExpanded ? "w-[20vw]" : "invisible w-0"
+    isExpanded ? "w-[80vw] md:w-[20vw]" : "invisible w-0"
   }`;
   if (isSelected) {
     className += " box-shadow selected-note bg-gray-100 dark:bg-gray-900 ";

@@ -46,7 +46,7 @@ export const NoteList: React.FC<Props> = ({}) => {
   }, [setNotes, setSelectedNote, userId]);
 
   return (
-    <div className="flex max-h-[67vh] flex-col items-center flex-grow p-2 overflow-y-scroll ">
+    <div className="flex max-h-[calc(65dvh)] flex-col items-center flex-grow p-2 overflow-y-scroll ">
       <AnimatePresence initial={false}>
         {notes.map((note) => {
           // console.log(sharedNotesData[note._id]);

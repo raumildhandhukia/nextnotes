@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-screen">
+      <body className="w-screen dark">
         <YourNotesProvider>
           <SharedNotesProvider>{children}</SharedNotesProvider>
         </YourNotesProvider>

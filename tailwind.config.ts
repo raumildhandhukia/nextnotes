@@ -1,3 +1,4 @@
+import { Md10K } from "react-icons/md";
 import type { Config } from "tailwindcss";
 
 const config = {

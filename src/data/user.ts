@@ -46,20 +46,10 @@ export const getUsersByName = async (query: string | undefined) => {
   try {
     const users = await db.user.findMany({
       where: {
-        OR: [
-          {
-            name: {
-              startsWith: query,
-              mode: "insensitive",
-            },
-          },
-          {
-            email: {
-              startsWith: query,
-              mode: "insensitive",
-            },
-          },
-        ],
+        email: {
+          startsWith: query,
+          mode: "insensitive",
+        },
       },
     });
     const userData: UserData[] = users.map((user) => {
@@ -70,7 +60,6 @@ export const getUsersByName = async (query: string | undefined) => {
         image: user.image,
       };
     });
-    console.log(userData);
     return userData;
   } catch (e) {
     console.log(e);

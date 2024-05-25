@@ -7,7 +7,6 @@ import { auth } from "@/auth";
 interface Props {
   params: { _id: string };
 }
-const SECRET = process.env.NEXTAUTH_SECRET;
 
 const Page: React.FC<Props> = async ({ params }) => {
   const session = await auth();

@@ -28,7 +28,12 @@ export const reset = async (values: z.infer<typeof ResetSchema>) => {
         error: "Something went wrong!",
       };
     }
-    await sendPasswordResetEmail(email, passwordResetToken.token);
+    const { name } = existingUser;
+    await sendPasswordResetEmail(
+      name || email,
+      email,
+      passwordResetToken.token
+    );
     return {
       success: "Reset link sent to your email",
     };
