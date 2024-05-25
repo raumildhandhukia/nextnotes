@@ -1,7 +1,7 @@
 # 🗒 ️next-notes
 ## A collaborative web app where users can share and edit notes in real-time.
 
-🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js.
+🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js and TipTap.
 
 ![next-notes-updated](https://github.com/raumildhandhukia/nextnotes/assets/72497060/97d262ef-9231-4f5a-b503-edfca1fbbb4d)
 
@@ -9,9 +9,10 @@
 
 ## Features
 
-- OAuth Integration: Seamless authentication through Google or GitHub.
-- Realtime Data Storage: Instantaneous data updates and synchronization.
+- Collaberative Curser: Real-time user cursor on each transaction.
 - Collaborative Note Writing: Real-time collaboration capabilities for note-taking.
+- Realtime Data Storage: Instantaneous data updates and synchronization.
+- OAuth Integration: Seamless authentication through Google or GitHub.
 - Modern, User-Friendly UI: Intuitive and aesthetically pleasing user interface design.
 - Light/Dark Mode.
 
@@ -22,6 +23,9 @@
 - Next.js: React framework for server-side rendering.
 - TypeScript: Typed JavaScript for safer code.
 - Auth.js: Authentication library for web applications.
+- Y.js: Shared data types for building collaborative software.
+- WebSocket: Realtime data-transfer.
+- TipTap: Suite of open source content editing and real-time collaboration . 
 - MongoDB: NoSQL database for scalable storage.
 - Prisma: ORM for database management.
 - TailwindCSS: Utility-first CSS framework.
