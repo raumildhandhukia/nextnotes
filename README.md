@@ -46,7 +46,7 @@ I am using TipTap Cloud as my Websocket Backend as Vercel does not
 support WebSocket Servers. You can create your own WebSocket server
 and manage the documents and their connections manually.
 
-If not using TipTap Cloud Server like me, remove last two env veriables
+If not using TipTap Cloud Server, remove last two env veriables
 (NEXT_PUBLIC_APP_ID and NEXT_PUBLIC_JWT)
 
 ```sh
