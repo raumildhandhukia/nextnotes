@@ -34,6 +34,7 @@ const CustomDocument = Document.extend({
 });
 
 const APP_ID = process.env.NEXT_PUBLIC_APP_ID;
+const JWT = process.env.NEXT_PUBLIC_JWT;
 
 export const Editor: React.FC<EditorProps> = ({
   throttledUpdate,
@@ -49,7 +50,7 @@ export const Editor: React.FC<EditorProps> = ({
     const provider = new TiptapCollabProvider({
       name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
       appId: `${APP_ID}`, // replace with YOUR_APP_ID
-      token: "notoken", // replace with your JWT
+      token: `${JWT}`, // replace with your JWT
       document: doc,
     });
     return [doc, provider];
