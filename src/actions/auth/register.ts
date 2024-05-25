@@ -6,6 +6,7 @@ import { RegisterSchema } from "@/schemas";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
 import { sendVerificationEmail } from "@/lib/mail";
+import { generateDummyData } from "@/data/notes";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -39,6 +40,9 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     verificationToken.email,
     verificationToken?.token
   );
+
+  // Generates Notes data for the user.
+  await generateDummyData(newUser.id);
 
   return { success: "Confirmation Email Sent !" };
 };
