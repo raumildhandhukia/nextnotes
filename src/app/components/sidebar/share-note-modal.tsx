@@ -54,11 +54,17 @@ export const ShareButton: React.FC<Props> = ({}) => {
           <MdShare />
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="w-[80vw] md:w-max">
         <DialogHeader>
-          <DialogTitle>Share</DialogTitle>
-          <DialogDescription>
-            Select the user of nextnotes you want to share this note with.
+          <DialogTitle>Share / Collaborate</DialogTitle>
+          <DialogDescription className="flex flex-col justify-start items-start">
+            <div>
+              <p className="text-left ">
+                Share this note with{" "}
+                <strong>existing users of next-notes.</strong> Enter their email
+                to get search results.{" "}
+              </p>
+            </div>
           </DialogDescription>
         </DialogHeader>
         <SearchUsers sharedWith={sharedNotesData[noteId!]} />
