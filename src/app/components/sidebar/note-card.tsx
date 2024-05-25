@@ -71,7 +71,10 @@ export const Note: React.FC<Props> = ({
       }
       return note;
     });
-    setIsExpanded(false);
+    if (isExpanded && window.innerWidth < 1024) {
+      setIsExpanded(false);
+    }
+
     if (deleteNoteId.length > 0) {
       setNotes(notes.filter((n) => n._id !== deleteNoteId));
       await deleteNote(deleteNoteId);
@@ -106,7 +109,8 @@ export const Note: React.FC<Props> = ({
       {userOwns && (
         <CardFooter className="flex justify-end items-end -my-4 gap-x-2">
           <div
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setNoteId(note._id);
             }}
           >
