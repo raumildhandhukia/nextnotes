@@ -1,6 +1,6 @@
 # 🗒 ️next-notes
 
-## A collaborative web app where users can share and edit notes in real-time.
+## A collaborative web app where users can share and make notes in real-time.
 
 🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js and TipTap.
 
@@ -10,7 +10,7 @@
 
 ## Features
 
-- Collaberative Curser: Real-time user cursor on each transaction.
+- Collaborative Cursor: Real-time user cursor representing each transaction.
 - Collaborative Note Writing: Real-time collaboration capabilities for note-taking.
 - Realtime Data Storage: Instantaneous data updates and synchronization.
 - OAuth Integration: Seamless authentication through Google or GitHub.
