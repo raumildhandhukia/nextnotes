@@ -2,7 +2,7 @@
 ## A collaborative web app where users can share and edit notes in real-time.
 
 🗒️ next-notes is a collaborative web application for note-taking, powered by Next.js and TipTap.
-
+![next-notes-final-gif](https://github.com/raumildhandhukia/nextnotes/assets/72497060/22d67958-834d-4ea9-8184-a0020bef5873)
 ![next-notes-updated](https://github.com/raumildhandhukia/nextnotes/assets/72497060/97d262ef-9231-4f5a-b503-edfca1fbbb4d)
 
 
