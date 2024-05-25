@@ -35,6 +35,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: "Failed to generate verification token!" };
   }
   await sendVerificationEmail(
+    name || email,
     verificationToken.email,
     verificationToken?.token
   );

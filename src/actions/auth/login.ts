@@ -5,11 +5,9 @@ import { LoginSchema } from "@/schemas";
 import { signIn } from "@/auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { generateVerificationToken } from "@/lib/tokens";
 import { getUserByEmail } from "@/data/user";
-import { send } from "process";
 import { sendVerificationEmail } from "@/lib/mail";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -29,7 +27,8 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     if (!verificationToken) {
       return { error: "Failed to generate verification token!" };
     }
-    await sendVerificationEmail(email, verificationToken.token);
+    const { name } = existingUser;
+    await sendVerificationEmail(name || email, email, verificationToken.token);
     return { success: "Email not verified, verification email sent!" };
   }
   try {
