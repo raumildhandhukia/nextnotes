@@ -34,8 +34,15 @@ export const Profile: React.FC<ProfileProps> = ({}) => {
             <AvatarFallback>{fallBackText}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
+        <DropdownMenuContent className="w-[50vw] md:w-[15vw]">
+          <DropdownMenuLabel>
+            <div className="flex flex-col">
+              <p>{user?.name}</p>
+              <p className="text-gray-500 text-sm text-ellipsis">
+                {user?.email}
+              </p>
+            </div>
+          </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <NightModeSwitch />

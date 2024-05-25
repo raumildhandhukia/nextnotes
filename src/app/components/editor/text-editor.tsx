@@ -43,6 +43,7 @@ export const Editor: React.FC<EditorProps> = ({
     useContext(Notes_Context);
   const [doc, provider] = useMemo(() => {
     const doc = new Y.Doc();
+    doc.getText().insert(0, "some initial content");
     const provider = new TiptapCollabProvider({
       name: selectedNote!._id, // any identifier - all connections sharing the same identifier will be synced
       appId: "7j9y6m10", // replace with YOUR_APP_ID
