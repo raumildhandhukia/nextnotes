@@ -42,7 +42,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   );
 
   // Generates Notes data for the user.
-  await generateDummyData(newUser.id);
+  // await generateDummyData(newUser.id);
 
   return { success: "Confirmation Email Sent !" };
 };

@@ -22,7 +22,7 @@ const Page: React.FC<Props> = async ({ params }) => {
   if (noteIds.includes(params._id)) {
     return <ExpandNote />;
   } else {
-    console.log("Note not found", params._id, noteIds);
+    console.log("Note not found");
   }
 };
 
