@@ -14,8 +14,14 @@ interface Props {
 const DOMAIN = process.env.NEXT_PUBLIC_APP_URL;
 
 export const AddButton: React.FC<Props> = ({ className }) => {
-  const { notes, setNotes, selectedNote, setSelectedNote } =
-    useContext(Notes_Context);
+  const {
+    isExpanded,
+    setIsExpanded,
+    notes,
+    setNotes,
+    selectedNote,
+    setSelectedNote,
+  } = useContext(Notes_Context);
   let enableAddNote = true;
   const user = useCurrentUser();
   const userId = user?.id;
@@ -48,6 +54,10 @@ export const AddButton: React.FC<Props> = ({ className }) => {
       setNotes([newNote, ...notes]);
     }
     setSelectedNote(newNote);
+    if (isExpanded && window.innerWidth < 1024) {
+      setIsExpanded(false);
+    }
+
     enableAddNote = true;
   };
 

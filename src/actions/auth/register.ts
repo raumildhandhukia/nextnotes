@@ -41,8 +41,5 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
     verificationToken?.token
   );
 
-  // Generates Notes data for the user.
-  // await generateDummyData(newUser.id);
-
   return { success: "Confirmation Email Sent !" };
 };
