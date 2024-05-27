@@ -34,7 +34,7 @@ const CustomDocument = Document.extend({
 });
 
 const APP_ID = process.env.NEXT_PUBLIC_APP_ID;
-const JWT = process.env.NEXT_PUBLIC_JWT;
+const JWT = process.env.NEXT_PUBLIC_JWT || "notoken";
 
 export const Editor: React.FC<EditorProps> = ({
   throttledUpdate,
